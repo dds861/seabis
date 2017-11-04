@@ -1,19 +1,18 @@
 package com.dd.newqazaqalphabet.seabis;
 
+import android.content.ClipData;
 import android.content.ClipboardManager;
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ScrollView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.daimajia.androidanimations.library.Techniques;
 import com.daimajia.androidanimations.library.YoYo;
@@ -25,7 +24,6 @@ public class Main0Activity extends AppCompatActivity implements View.OnClickList
 
     private EditText mEtUpEditText;
     private ScrollView mScrollViewEditText;
-    private FloatingActionButton mFab;
     final String SAVED_TEXT = "saved_text";
     final String STATE_TEXT = "C2L";
     SharedPreferences sPref;
@@ -38,6 +36,11 @@ public class Main0Activity extends AppCompatActivity implements View.OnClickList
     private TextView mTvFirstState;
     private ImageView mIvChangeButton;
     private TextView mTvSecondState;
+    private TextView mEtDownEditText;
+    private ImageView mIvDelete;
+    private ImageView mIvInsert;
+    private ImageView mIvCopyAll;
+    private ImageView mIvShare;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -81,47 +84,27 @@ public class Main0Activity extends AppCompatActivity implements View.OnClickList
     private void initView() {
         mEtUpEditText = (EditText) findViewById(R.id.etUpEditText);
         mScrollViewEditText = (ScrollView) findViewById(R.id.scrollViewEditText);
-        mFab = (FloatingActionButton) findViewById(R.id.fab);
-        mFab.setOnClickListener(this);
-
 
         mTvFirstState = (TextView) findViewById(R.id.tvFirstState);
         mIvChangeButton = (ImageView) findViewById(R.id.ivChangeButton);
         mIvChangeButton.setOnClickListener(this);
         mTvSecondState = (TextView) findViewById(R.id.tvSecondState);
+
+        mEtDownEditText = (TextView) findViewById(R.id.etDownEditText);
+        mIvDelete = (ImageView) findViewById(R.id.ivDelete);
+        mIvDelete.setOnClickListener(this);
+        mIvInsert = (ImageView) findViewById(R.id.ivInsert);
+        mIvInsert.setOnClickListener(this);
+        mIvCopyAll = (ImageView) findViewById(R.id.ivCopyAll);
+        mIvCopyAll.setOnClickListener(this);
+        mIvShare = (ImageView) findViewById(R.id.ivShare);
+        mIvShare.setOnClickListener(this);
     }
 
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
-            case R.id.fab:
 
-                //эффект нажатия на кнопку fab
-                YoYo.with(Techniques.Flash)
-                        .duration(750)
-                        .repeat(0)
-                        .playOn(findViewById(R.id.fab));
-
-                //проверяем пустой ли текст в edittext
-                if (mEtUpEditText == null || mEtUpEditText.equals(null) || mEtUpEditText.equals("")) {
-                    break;
-                }
-                Intent intent2 = new Intent(getApplicationContext(), Main2Activity.class);
-                String s2;
-                //Проверяем какой стоит выбор латиница на киррилицу или наоборот
-                //в зависимости от выбора будет происходить вызов соответствующего метода
-                //для приобразования текста
-                if (state_cyr_to_lat) {
-                    s2 = new Converter().cyrillicToLatin(mEtUpEditText.getText().toString());
-//                    state_cyr_to_lat=false;
-                } else {
-                    s2 = new Converter().latinToCyrillic(mEtUpEditText.getText().toString());
-//                    state_cyr_to_lat=true;
-                }
-                //отправляем текст в другой activity
-                intent2.putExtra("text", s2);
-                startActivity(intent2);
-                break;
             case R.id.ivChangeButton:// TODO 17/11/04
 
                 //эффект нажатия на кнопку ivChangeButton
@@ -154,41 +137,60 @@ public class Main0Activity extends AppCompatActivity implements View.OnClickList
                         .repeat(0)
                         .playOn(findViewById(R.id.tvSecondState));
 
-
+                //Меняем состояние кнопки ivChangeButton
                 if (state_cyr_to_lat) {
                     state_cyr_to_lat = false;
                 } else {
                     state_cyr_to_lat = true;
                 }
+                //Меняем местами название First and Second textviews
                 loadTextViewStates();
+
+                //проверяем пустой ли текст в mEtUpEditText
+                if (mEtUpEditText == null || mEtUpEditText.equals(null) || mEtUpEditText.equals("")) {
+                    break;
+                }
+                String s2;
+                //Проверяем какой стоит выбор латиница на киррилицу или наоборот
+                //в зависимости от выбора будет происходить вызов соответствующего метода
+                //для приобразования текста
+                if (state_cyr_to_lat) {
+                    s2 = new Converter().cyrillicToLatin(mEtUpEditText.getText().toString());
+//                    state_cyr_to_lat=false;
+                } else {
+                    s2 = new Converter().latinToCyrillic(mEtUpEditText.getText().toString());
+//                    state_cyr_to_lat=true;
+                }
+                //Присваем mTvSecondState уже преобразованный текст
+                mEtDownEditText.setText(s2);
+
+
                 break;
-            default:
+            case R.id.ivDelete:// TODO 17/11/04
+                //эффект нажатия на кнопку action_clean
+                YoYo.with(Techniques.FadeOut)
+                        .duration(150)
+                        .repeat(0)
+                        .playOn(findViewById(R.id.ivDelete));
+
+                YoYo.with(Techniques.FadeIn)
+                        .duration(350)
+                        .repeat(0)
+                        .playOn(findViewById(R.id.ivDelete));
+                //edittext равно Пустота
+                mEtUpEditText.setText("");
+                mEtDownEditText.setText("");
                 break;
-        }
-    }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.menu_main, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-
-        switch (item.getItemId()) {
-            //Действия при вставки текста в edittext
-            case R.id.action_insert:// TODO 17/11/02
+            case R.id.ivInsert:// TODO 17/11/04
                 //эффект нажатия на кнопку action_insert
                 YoYo.with(Techniques.FadeOut)
                         .duration(150)
                         .repeat(0)
-                        .playOn(findViewById(R.id.action_insert));
+                        .playOn(findViewById(R.id.ivInsert));
                 YoYo.with(Techniques.FadeIn)
                         .duration(350)
                         .repeat(0)
-                        .playOn(findViewById(R.id.action_insert));
+                        .playOn(findViewById(R.id.ivInsert));
 
                 //Вставляем в edittext - текст с буфера обмена
                 ClipboardManager clipboard = (ClipboardManager) getSystemService(CLIPBOARD_SERVICE);
@@ -196,28 +198,50 @@ public class Main0Activity extends AppCompatActivity implements View.OnClickList
                 String newText = clipboard.getPrimaryClip().getItemAt(0).getText().toString();
 
                 mEtUpEditText.setText(oldText + newText);
-                return true;
-            //Действия при очистки текста в edittext
-            case R.id.action_clean:// TODO 17/11/02
-                //эффект нажатия на кнопку action_clean
+                break;
+            case R.id.ivCopyAll:// TODO 17/11/04
                 YoYo.with(Techniques.FadeOut)
                         .duration(150)
                         .repeat(0)
-                        .playOn(findViewById(R.id.action_clean));
-
+                        .playOn(findViewById(R.id.ivCopyAll));
                 YoYo.with(Techniques.FadeIn)
                         .duration(350)
                         .repeat(0)
-                        .playOn(findViewById(R.id.action_clean));
-                //edittext равно Пустота
-                mEtUpEditText.setText("");
-                return true;
+                        .playOn(findViewById(R.id.ivCopyAll));
 
+                // Gets a handle to the clipboard service.
+                ClipboardManager clipboard2 = (ClipboardManager) getSystemService(Context.CLIPBOARD_SERVICE);
+
+                // Creates a new text clip to put on the clipboard
+                ClipData clip = ClipData.newPlainText("simple text", mEtDownEditText.getText().toString());
+
+                // Set the clipboard's primary clip.
+                clipboard2.setPrimaryClip(clip);
+                Toast.makeText(this, R.string.TextCopied, Toast.LENGTH_SHORT).show();
+                break;
+            case R.id.ivShare:// TODO 17/11/04
+                YoYo.with(Techniques.FadeOut)
+                        .duration(150)
+                        .repeat(0)
+                        .playOn(findViewById(R.id.ivShare));
+                YoYo.with(Techniques.FadeIn)
+                        .duration(350)
+                        .repeat(0)
+                        .playOn(findViewById(R.id.ivShare));
+
+                String shareBody = mEtDownEditText.getText().toString();
+                Intent sharingIntent = new Intent(Intent.ACTION_SEND);
+                sharingIntent.setType("text/plain");
+                sharingIntent.putExtra(Intent.EXTRA_SUBJECT, "Subject Here");
+                sharingIntent.putExtra(Intent.EXTRA_TEXT, shareBody);
+                startActivity(Intent.createChooser(sharingIntent, getString(R.string.share_using)));
+                break;
             default:
-
-                return super.onOptionsItemSelected(item);
+                break;
         }
     }
+
+
 
     void handleSendText(Intent intent) {
         String sharedText = intent.getStringExtra(Intent.EXTRA_TEXT);

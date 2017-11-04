@@ -9,11 +9,7 @@
         android:roundIcon="@mipmap/ic_launcher_carrot2"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity
-            android:name=".Main2Activity"
 
-            android:parentActivityName=".Main0Activity"
-            android:windowSoftInputMode="stateHidden|adjustResize" />
         <activity
             android:name=".Main0Activity"
             android:windowSoftInputMode="stateHidden|adjustResize">
