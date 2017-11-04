@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="enter_text_in_cyrillic_kazakh">Кириллица / латын тіліндегі мәтінді енгізіңіз</string>
+    <string name="here_will_be_text_in_latin_kazakh">Мұнда түрлендірілген мәтін болады</string>
+    <string name="btnClean">Тазарту</string>
+    <string name="btnInsert">Кірістіру</string>
+    <string name="btnConvert">Түрлендіру</string>
+    <string name="copy_all">Барлығын көшіру</string>
+    <string name="share">Бөлісу</string>
+    <string name="share_using">Ортақ пайдалану?</string>
+    <string name="cyrillic_to_latin">Кириллицадан латынға</string>
+    <string name="latin_to_cyrillic">Латыннан кириллицаға</string>
+    <string name="TextCopied">Мәтін көшірілді</string>
+    <string name="cyrillic">Кириллица</string>
+    <string name="latin">Латиница</string>
+</resources>

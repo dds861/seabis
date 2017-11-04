@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "743008942965",
+    "firebase_url": "https://seabis-34966.firebaseio.com",
+    "project_id": "seabis-34966",
+    "storage_bucket": "seabis-34966.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:743008942965:android:b7e31041c2d7fbd6",
+        "android_client_info": {
+          "package_name": "com.dd.newqazaqalphabet.seabis"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "743008942965-69hv9dbs64dhbbi77ouk11lk1l20lls3.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.dd.newqazaqalphabet.seabis",
+            "certificate_hash": "e5e87da777f12d59e33320bb18a903d5dd86ce8b"
+          }
+        },
+        {
+          "client_id": "743008942965-2l12j5ud5sgn8k718i53he8i13qjbvl2.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBY6LGOT9ZEhLAjX7D6zRq0FOMdQeCLWLY"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "743008942965-2l12j5ud5sgn8k718i53he8i13qjbvl2.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

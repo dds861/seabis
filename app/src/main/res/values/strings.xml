@@ -1,0 +1,17 @@
+<resources>
+    <string name="app_name" translatable="false">Sæbiz</string>
+    <string name="here_will_be_text_in_latin_kazakh">Здесь будет преобразованный текст</string>
+    <string name="enter_text_in_cyrillic_kazakh">Введите текст на кириллице / латинице</string>
+    <string name="btnClean">Очистить</string>
+    <string name="btnInsert">Вставить</string>
+    <string name="btnConvert">Преобразовать</string>
+    <string name="copy_all">Скопировать все</string>
+    <string name="share_using">Поделиться с использованием?</string>
+    <string name="share">Поделиться</string>
+    <string name="cyrillic_to_latin">С кириллицы в латиницу</string>
+    <string name="latin_to_cyrillic">С латиницы на кириллицу</string>
+    <string name="TextCopied">Текст скопирован</string>
+    <string name="banner_ad_unit_id" translatable="false">ca-app-pub-3940256099942544/6300978111</string>
+    <string name="cyrillic">Кириллица</string>
+    <string name="latin">Латиница</string>
+</resources>
