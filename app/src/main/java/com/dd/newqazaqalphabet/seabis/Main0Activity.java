@@ -7,6 +7,8 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -25,6 +27,7 @@ public class Main0Activity extends AppCompatActivity implements View.OnClickList
     private EditText mEtUpEditText;
     private ScrollView mScrollViewEditText;
     final String SAVED_TEXT = "saved_text";
+    final String SAVED_TEXT_DOWN = "saved_text_down";
     final String STATE_TEXT = "C2L";
     SharedPreferences sPref;
     String temp;
@@ -36,7 +39,7 @@ public class Main0Activity extends AppCompatActivity implements View.OnClickList
     private TextView mTvFirstState;
     private ImageView mIvChangeButton;
     private TextView mTvSecondState;
-    private TextView mEtDownEditText;
+    private TextView mTvDown;
     private ImageView mIvDelete;
     private ImageView mIvInsert;
     private ImageView mIvCopyAll;
@@ -44,8 +47,13 @@ public class Main0Activity extends AppCompatActivity implements View.OnClickList
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        //Восстанавливаем тему после лого
+        setTheme(R.style.AppTheme);
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main0);
+
+
         initView();
 
 
@@ -59,26 +67,51 @@ public class Main0Activity extends AppCompatActivity implements View.OnClickList
         getSupportActionBar().setLogo(R.mipmap.ic_launcher_carrot2);
         getSupportActionBar().setDisplayUseLogoEnabled(true);
 
-
+        //Обрабатываем с текстом который прислали с другой программы
         Intent intent = getIntent();
         String action = intent.getAction();
         String type = intent.getType();
 
+        //Если ничего не присылали, а программау просто открыли тогда восстанавливаем ранее сохраненный текст
         if (Intent.ACTION_SEND.equals(action) && type != null) {
             if ("text/plain".equals(type)) {
                 handleSendText(intent); // Handle text being sent
-
             }
         } else {
-            // Handle other intents, such as being started from the home screen
+            // Если мы просто запускаем приложение тогда восстановиться текст который ранее был
+
+            //Восстановиться состояние текста в edittext
             loadText();
+
+            //Восстановиться состояние "Кириллица" и "латиница"
             loadState();
+
+            //Восстановиться состояние текста в textview
+            loadTextSecondTextview();
         }
+
         //Проверяем был ли текст ранее, если был, что восстанавливаем
         if (temp != null) {
             mEtUpEditText.setText(temp);
         }
 
+        //mEtUpEditText text change listener. Что будет происходить после вставки текста
+        mEtUpEditText.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+                convertTextFromUpToDown();
+            }
+        });
     }
 
     private void initView() {
@@ -90,7 +123,7 @@ public class Main0Activity extends AppCompatActivity implements View.OnClickList
         mIvChangeButton.setOnClickListener(this);
         mTvSecondState = (TextView) findViewById(R.id.tvSecondState);
 
-        mEtDownEditText = (TextView) findViewById(R.id.etDownEditText);
+        mTvDown = (TextView) findViewById(R.id.tvDown);
         mIvDelete = (ImageView) findViewById(R.id.ivDelete);
         mIvDelete.setOnClickListener(this);
         mIvInsert = (ImageView) findViewById(R.id.ivInsert);
@@ -150,19 +183,7 @@ public class Main0Activity extends AppCompatActivity implements View.OnClickList
                 if (mEtUpEditText == null || mEtUpEditText.equals(null) || mEtUpEditText.equals("")) {
                     break;
                 }
-                String s2;
-                //Проверяем какой стоит выбор латиница на киррилицу или наоборот
-                //в зависимости от выбора будет происходить вызов соответствующего метода
-                //для приобразования текста
-                if (state_cyr_to_lat) {
-                    s2 = new Converter().cyrillicToLatin(mEtUpEditText.getText().toString());
-//                    state_cyr_to_lat=false;
-                } else {
-                    s2 = new Converter().latinToCyrillic(mEtUpEditText.getText().toString());
-//                    state_cyr_to_lat=true;
-                }
-                //Присваем mTvSecondState уже преобразованный текст
-                mEtDownEditText.setText(s2);
+                convertTextFromUpToDown();
 
 
                 break;
@@ -179,7 +200,7 @@ public class Main0Activity extends AppCompatActivity implements View.OnClickList
                         .playOn(findViewById(R.id.ivDelete));
                 //edittext равно Пустота
                 mEtUpEditText.setText("");
-                mEtDownEditText.setText("");
+                mTvDown.setText("");
                 break;
             case R.id.ivInsert:// TODO 17/11/04
                 //эффект нажатия на кнопку action_insert
@@ -213,7 +234,7 @@ public class Main0Activity extends AppCompatActivity implements View.OnClickList
                 ClipboardManager clipboard2 = (ClipboardManager) getSystemService(Context.CLIPBOARD_SERVICE);
 
                 // Creates a new text clip to put on the clipboard
-                ClipData clip = ClipData.newPlainText("simple text", mEtDownEditText.getText().toString());
+                ClipData clip = ClipData.newPlainText("simple text", mTvDown.getText().toString());
 
                 // Set the clipboard's primary clip.
                 clipboard2.setPrimaryClip(clip);
@@ -229,7 +250,7 @@ public class Main0Activity extends AppCompatActivity implements View.OnClickList
                         .repeat(0)
                         .playOn(findViewById(R.id.ivShare));
 
-                String shareBody = mEtDownEditText.getText().toString();
+                String shareBody = mTvDown.getText().toString();
                 Intent sharingIntent = new Intent(Intent.ACTION_SEND);
                 sharingIntent.setType("text/plain");
                 sharingIntent.putExtra(Intent.EXTRA_SUBJECT, "Subject Here");
@@ -241,21 +262,33 @@ public class Main0Activity extends AppCompatActivity implements View.OnClickList
         }
     }
 
-
-
+    //Обрабатываем с текстом который прислали с другой программы
     void handleSendText(Intent intent) {
         String sharedText = intent.getStringExtra(Intent.EXTRA_TEXT);
+        //Проверяем не пустой ли текст
         if (sharedText != null) {
-            // Update UI to reflect text being shared
+            // mEtUpEditText присваем текст который прислали
             mEtUpEditText.setText(sharedText);
+            // sentTextCatchedConverted присваем текст который приобразовали в латиницу
+            String sentTextCatchedConverted = new Converter().cyrillicToLatin(mEtUpEditText.getText().toString());
+            // mTvDown присваем текст который приобразовали в латиницу
+            mTvDown.setText(sentTextCatchedConverted);
         }
     }
 
+    //Если вышли из приложения, состояние текста в приложении сохраниться
     @Override
     protected void onPause() {
         super.onPause();
+
+        //Сохраниться состояние текста в edittext
         saveText();
+
+        //Сохраниться состояние "Кириллица" и "латиница"
         saveState();
+
+        //Сохраниться состояние текста в textview
+        saveTextSecondTextview();
     }
 
     //save text from edittext, when we return from previous activity text will be restored
@@ -271,6 +304,22 @@ public class Main0Activity extends AppCompatActivity implements View.OnClickList
         sPref = getPreferences(MODE_PRIVATE);
         String savedText = sPref.getString(SAVED_TEXT, "");
         mEtUpEditText.setText(savedText);
+
+    }
+
+    //save text from edittext, when we return from previous activity text will be restored
+    void saveTextSecondTextview() {
+        sPref = getPreferences(MODE_PRIVATE);
+        SharedPreferences.Editor ed = sPref.edit();
+        ed.putString(SAVED_TEXT_DOWN, mTvDown.getText().toString());
+        ed.apply();
+    }
+
+    //save text from edittext, when we return from previous activity text will be restored
+    void loadTextSecondTextview() {
+        sPref = getPreferences(MODE_PRIVATE);
+        String savedText = sPref.getString(SAVED_TEXT_DOWN, "");
+        mTvDown.setText(savedText);
 
     }
 
@@ -291,6 +340,7 @@ public class Main0Activity extends AppCompatActivity implements View.OnClickList
 
     }
 
+    //Восстанавливает состояние "Кириллицы" и "латиница"
     void loadTextViewStates() {
         if (state_cyr_to_lat) {
             String stateFirst = getResources().getString(R.string.cyrillic);
@@ -304,6 +354,23 @@ public class Main0Activity extends AppCompatActivity implements View.OnClickList
             mTvFirstState.setText(stateFirst);
             mTvSecondState.setText(stateSecond);
         }
+    }
+
+    //Здесь происходит преобразование вставленного текста
+    void convertTextFromUpToDown() {
+        String s2;
+        //Проверяем какой стоит выбор латиница на киррилицу или наоборот
+        //в зависимости от выбора будет происходить вызов соответствующего метода
+        //для приобразования текста
+        if (state_cyr_to_lat) {
+            s2 = new Converter().cyrillicToLatin(mEtUpEditText.getText().toString());
+//                    state_cyr_to_lat=false;
+        } else {
+            s2 = new Converter().latinToCyrillic(mEtUpEditText.getText().toString());
+//                    state_cyr_to_lat=true;
+        }
+        //Присваем mTvSecondState уже преобразованный текст
+        mTvDown.setText(s2);
     }
 
 }
