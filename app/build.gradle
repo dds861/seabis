@@ -28,10 +28,15 @@ dependencies {
     androidTestImplementation 'com.android.support.test:runner:1.0.1'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.1'
     compile 'com.android.support:cardview-v7:26.1.0'
+
+    //https://github.com/daimajia/AndroidViewAnimations библиотека анимации
     compile 'com.daimajia.easing:library:2.0@aar'
     compile 'com.daimajia.androidanimations:library:2.3@aar'
 
+    //https://android-arsenal.com/details/1/1720 Спиннер библиотека
+    compile 'com.github.ganfra:material-spinner:2.0.0'
 }
+
 
 
 apply plugin: 'com.google.gms.google-services'

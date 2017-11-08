@@ -12,5 +12,6 @@
     <string name="latin_to_cyrillic">С латиницы на кириллицу</string>
     <string name="TextCopied">Текст скопирован</string>
     <string name="cyrillic">Кириллица</string>
-    <string name="latin">Латын</string>
+    <string name="latin">Латиница</string>
+    <string name="diacritic">Диакритика</string>
 </resources>

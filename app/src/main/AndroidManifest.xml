@@ -9,7 +9,8 @@
         android:roundIcon="@mipmap/ic_launcher_carrot2"
         android:supportsRtl="true"
         android:theme="@style/SplashTheme">
-        <!--android:theme="@style/AppTheme">-->
+
+        <!-- android:theme="@style/AppTheme"> -->
 
         <activity
             android:name=".Main0Activity"
@@ -27,6 +28,7 @@
                 <data android:mimeType="text/plain" />
             </intent-filter>
         </activity>
+        <activity android:name=".AlphabetsActivity"></activity>
     </application>
 
 </manifest>
