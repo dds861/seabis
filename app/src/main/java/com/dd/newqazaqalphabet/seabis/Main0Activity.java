@@ -22,6 +22,7 @@ import android.widget.Toast;
 
 import com.daimajia.androidanimations.library.Techniques;
 import com.daimajia.androidanimations.library.YoYo;
+import com.dd.newqazaqalphabet.seabis.Settings.ActivitySettingsAlphabets;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
 
@@ -113,17 +114,20 @@ public class Main0Activity extends AppCompatActivity implements View.OnClickList
         mSpinnerSecondState = (Spinner) findViewById(R.id.spinnerSecondState);
     }
 
+    //Создается кнопка Settings справо вверхнем углу на action bar
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_settings, menu);
         return true;
     }
 
+    //Создается меню на кнопке settings на Action bar
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.action_settings:
-
+                Intent intentAlphabetActivity = new Intent(getApplicationContext(), ActivitySettingsAlphabets.class);
+                startActivity(intentAlphabetActivity);
 
                 return true;
 

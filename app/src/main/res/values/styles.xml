@@ -33,5 +33,8 @@
         <item name="android:windowBackground">@drawable/splash</item>
     </style>
 
+    <style name="CodeFont" parent="@android:style/TextAppearance.Medium">
+        <item name="android:textColor">@color/primary</item>
 
+    </style>
 </resources>

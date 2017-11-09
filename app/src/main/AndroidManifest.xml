@@ -28,7 +28,12 @@
                 <data android:mimeType="text/plain" />
             </intent-filter>
         </activity>
-        <activity android:name=".AlphabetsActivity"></activity>
+        <activity
+            android:name=".Settings.Cyrrillic.ActivitySettingsAlphabetsCyrrillic"
+            android:parentActivityName=".Main0Activity"></activity>
+        <activity
+            android:name=".Settings.ActivitySettingsAlphabets"
+            android:parentActivityName=".Main0Activity"></activity>
     </application>
 
 </manifest>

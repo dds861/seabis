@@ -7,6 +7,7 @@ package com.dd.newqazaqalphabet.seabis;
 public class Converter {
     public String cyrillicToLatin(String OCRresult) {
         OCRresult = OCRresult
+
                 .replace("А", "A")
                 .replace("а", "a")
                 .replace("Ә", "A'")
