@@ -15,4 +15,17 @@
     <string name="cyrillic">Кириллица</string>
     <string name="latin">Латиница</string>
     <string name="diacritic">Диакритика</string>
+    <string name="unicode1BasicLatinASCII">Unicode1BasicLatinASCII</string>
+    <string name="unicode2Latin1Supplement">Unicode2Latin1Supplement</string>
+    <string name="unicode3LatinExtendedA">Unicode3LatinExtendedA</string>
+    <string name="unicode4LatinExtendedB">Unicode4LatinExtendedB</string>
+    <string name="unicode5LatinExtendedC">Unicode5LatinExtendedC</string>
+    <string name="unicode6LatinExtendedD">Unicode6LatinExtendedD</string>
+    <string name="unicode7LatinExtendedE">Unicode7LatinExtendedE</string>
+    <string name="unicode8LatinExtendedAdditional">Unicode8LatinExtendedAdditional</string>
+    <string name="unicode9LatinLigatures">Unicode9LatinLigatures</string>
+    <string name="unicode10FullwidthLatinLetters">Unicode10FullwidthLatinLetters</string>
+    <string name="unicode11IpaExtensions">Unicode11IpaExtensions</string>
+    <string name="unicode12PhoneticExtensions">Unicode12PhoneticExtensions</string>
+    <string name="unicode13PhoneticExtensionsSupplement">Unicode13PhoneticExtensionsSupplement</string>
 </resources>

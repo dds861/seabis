@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context="com.dd.newqazaqalphabet.seabis.Settings.Cyrrillic.ActivitySettingsAlphabetsCyrrillic">
+    tools:context="com.dd.newqazaqalphabet.seabis.Settings.Table.ActivityTable">
 
     <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
@@ -18,35 +18,63 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:gravity="center_horizontal|center_vertical"
-            android:padding="4dp"
-            android:text="@string/cyrillic" />
-
+            android:paddingBottom="16dp"
+            android:paddingTop="16dp"
+            android:text="@string/cyrillic"
+            android:textColor="@color/primary_text" />
+        <View
+            android:layout_width="1dp"
+            android:layout_height="fill_parent"
+            android:background="@color/divider" />
         <TextView
             android:id="@+id/text22"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:gravity="center_horizontal|center_vertical"
-            android:padding="4dp"
-            android:text="@string/latin" />
-
+            android:paddingBottom="16dp"
+            android:paddingTop="16dp"
+            android:text="@string/latin"
+            android:textColor="@color/primary_text" />
+        <View
+            android:layout_width="1dp"
+            android:layout_height="fill_parent"
+            android:background="@color/divider" />
         <TextView
             android:id="@+id/text32"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:gravity="center_horizontal|center_vertical"
-            android:padding="4dp"
-            android:text="@string/app_name" />
-
+            android:paddingBottom="16dp"
+            android:paddingTop="16dp"
+            android:text="@string/app_name"
+            android:textColor="@color/primary_text" />
+        <View
+            android:layout_width="1dp"
+            android:layout_height="fill_parent"
+            android:background="@color/divider" />
         <TextView
             android:id="@+id/text42"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:gravity="center_horizontal|center_vertical"
-            android:padding="4dp"
-            android:text="@string/diacritic" />
+            android:paddingBottom="16dp"
+            android:paddingTop="16dp"
+            android:text="@string/diacritic"
+            android:textColor="@color/primary_text" />
+
+        <TextView
+            android:id="@+id/text52"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1.1"
+            android:gravity="center_horizontal|center_vertical"
+            android:paddingBottom="16dp"
+            android:paddingTop="16dp"
+            android:text=""
+            android:textColor="@color/primary_text" />
 
     </LinearLayout>
 
@@ -63,7 +91,7 @@
             android:id="@+id/listViewAlphabet"
             android:layout_width="match_parent"
 
-            android:listSelector="@android:color/transparent"
-            android:layout_height="match_parent"/>
+            android:layout_height="match_parent"
+            android:listSelector="@android:color/transparent" />
     </LinearLayout>
 </LinearLayout>

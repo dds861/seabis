@@ -1,10 +1,10 @@
-package com.dd.newqazaqalphabet.seabis.Settings.Cyrrillic;
+package com.dd.newqazaqalphabet.seabis.Settings.Table;
 
 /**
  * Created by dds86 on 08-Nov-17.
  */
 
-public class ActivitySettingsAlphabetsCyrrillicProduct {
+public class TableProduct {
     String textView1, textView2, textView3, textView4;
 
     public String getTextView1() {
@@ -39,7 +39,7 @@ public class ActivitySettingsAlphabetsCyrrillicProduct {
         this.textView4 = textView4;
     }
 
-    public ActivitySettingsAlphabetsCyrrillicProduct(String textView1, String textView2, String textView3, String textView4) {
+    public TableProduct(String textView1, String textView2, String textView3, String textView4) {
         this.textView1 = textView1;
         this.textView2 = textView2;
         this.textView3 = textView3;

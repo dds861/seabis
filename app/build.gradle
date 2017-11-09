@@ -35,7 +35,11 @@ dependencies {
 
     //https://android-arsenal.com/details/1/1720 Спиннер библиотека
     compile 'com.github.ganfra:material-spinner:2.0.0'
+
+    //https://github.com/AAkira/ExpandableLayout - Expandable layout
+    compile 'com.github.aakira:expandable-layout:1.6.0@aar'
 }
+
 
 
 

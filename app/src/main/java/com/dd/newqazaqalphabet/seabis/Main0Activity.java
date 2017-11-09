@@ -22,7 +22,7 @@ import android.widget.Toast;
 
 import com.daimajia.androidanimations.library.Techniques;
 import com.daimajia.androidanimations.library.YoYo;
-import com.dd.newqazaqalphabet.seabis.Settings.ActivitySettingsAlphabets;
+import com.dd.newqazaqalphabet.seabis.Settings.ActivitySettings;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
 
@@ -126,7 +126,7 @@ public class Main0Activity extends AppCompatActivity implements View.OnClickList
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.action_settings:
-                Intent intentAlphabetActivity = new Intent(getApplicationContext(), ActivitySettingsAlphabets.class);
+                Intent intentAlphabetActivity = new Intent(getApplicationContext(), ActivitySettings.class);
                 startActivity(intentAlphabetActivity);
 
                 return true;
@@ -559,7 +559,7 @@ public class Main0Activity extends AppCompatActivity implements View.OnClickList
         }
         //  Действие если cyrillic To Acute
         else if (textFirstSpinner.equals(cyrillic) && textSecondSpinner.equals(diacritic)) {
-            result = new Converter().cyrillicToAcute(mEtUpEditText.getText().toString());
+            result = new Converter().cyrillicToDiacritic(mEtUpEditText.getText().toString());
         }
         //  Действие если cyrillic To Saebiz
         else if (textFirstSpinner.equals(cyrillic) && textSecondSpinner.equals(saebiz)) {

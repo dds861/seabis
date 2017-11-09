@@ -189,7 +189,7 @@ public class Converter {
         return OCRresult;
     }
 
-    public String cyrillicToAcute(String OCRresult) {
+    public String cyrillicToDiacritic(String OCRresult) {
         OCRresult = OCRresult
                 .replace("А", "A")
                 .replace("а", "a")

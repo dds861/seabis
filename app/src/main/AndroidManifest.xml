@@ -28,12 +28,16 @@
                 <data android:mimeType="text/plain" />
             </intent-filter>
         </activity>
+
         <activity
-            android:name=".Settings.Cyrrillic.ActivitySettingsAlphabetsCyrrillic"
-            android:parentActivityName=".Main0Activity"></activity>
+            android:name=".Settings.ActivitySettings"
+            android:parentActivityName=".Main0Activity" />
         <activity
-            android:name=".Settings.ActivitySettingsAlphabets"
-            android:parentActivityName=".Main0Activity"></activity>
+            android:name=".Settings.Table.ActivityTable"
+            android:parentActivityName=".Settings.ActivitySettings" />
+        <activity
+            android:name=".Settings.Table.EditDiacteric.ActivityEditDiacritic"
+            android:parentActivityName=".Settings.Table.ActivityTable" />
     </application>
 
 </manifest>
