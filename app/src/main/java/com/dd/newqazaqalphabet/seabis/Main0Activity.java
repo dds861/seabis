@@ -2,13 +2,17 @@ package com.dd.newqazaqalphabet.seabis;
 
 import android.content.ClipData;
 import android.content.ClipboardManager;
+import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -52,6 +56,7 @@ public class Main0Activity extends AppCompatActivity implements View.OnClickList
     ArrayAdapter<String> adapterFirstSpinner;
     ArrayAdapter<String> adapterSecondSpinner;
 
+    DBHelper dbHelper;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -82,8 +87,44 @@ public class Main0Activity extends AppCompatActivity implements View.OnClickList
         //Обрабатываем второй спиннер R.id.spinnerFirstState
         spinnerSecondState();
 
+        createDatabase();
 
     }
+
+    void createDatabase() {
+        final String LOG_TAG = "myLogs";
+
+        String stringCyrrillic = "А<>а<>Ә<>ә<>Б<>б<>В<>в<>Г<>г<>Ғ<>ғ<>Д<>д<>Е<>е<>Ё<>ё<>Ж<>ж<>З<>з<>И<>и<>Й<>й<>К<>к<>Қ<>қ<>Л<>л<>М<>м<>Н<>н<>Ң<>ң<>О<>о<>Ө<>ө<>П<>п<>Р<>р<>С<>с<>Т<>т<>У<>у<>Ұ<>ұ<>Ү<>ү<>Ф<>ф<>Х<>х<>Һ<>һ<>Ц<>ц<>Ч<>ч<>Ш<>ш<>Щ<>щ<>Ъ<>ъ<>Ы<>ы<>І<>і<>Ь<>ь<>Э<>э<>Ю<>ю<>Я<>я";
+        String stringSaebiz = "A<>a<>Ae<>ae<>B<>b<>V<>v<>G<>g<>Gh<>gh<>D<>d<>E<>e<>E<>e<>Zh<>zh<>Z<>z<>I<>i<>J<>j<>K<>k<>Q<>q<>L<>l<>M<>m<>N<>n<>Ng<>ng<>O<>o<>Oe<>oe<>P<>p<>R<>r<>S<>s<>T<>t<>W<>w<>U<>u<>Ue<>ue<>F<>f<>H<>h<>H<>h<>C<>c<>Ch<>ch<>Sh<>sh<>Sh<>sh<><><>Y<>y<>I<>i<><><>E<>e<>Iy<>iy<>Ia<>ia";
+        String stringLatin = "A<>a<>A'<>a'<>B<>b<>V<>v<>G<>g<>G'<>g'<>D<>d<>E<>e<>I'o<>i'o<>J<>j<>Z<>z<>I'<>i'<>I'<>i'<>K<>k<>Q<>q<>L<>l<>M<>m<>N<>n<>N'<>n'<>O<>o<>O'<>o'<>P<>p<>R<>r<>S<>s<>T<>t<>Y'<>y'<>U<>u<>U'<>u'<>F<>f<>H<>h<>H<>h<>C<>c<>C'<>c'<>S'<>s'<>S's'<>S's'<><><>Y<>y<>I<>i<><><>E<>e<>I'y'<>i'y'<>I'a<>i'a";
+        String stringDiacritic = "A<>a<>À<>à<>B<>b<>V<>v<>G<>g<>Ǵ<>ǵ<>D<>d<>E<>e<>È<>è<>J<>j<>Z<>z<>Í<>í<>Í<>í<>K<>k<>Ḱ<>ḱ<>L<>l<>M<>m<>N<>n<>Ń<>ń<>O<>o<>Ó<>ó<>P<>p<>R<>r<>S<>s<>T<>t<>Ý<>ý<>U<>u<>Ú<>ú<>F<>f<>H<>h<>H<>h<>C<>c<>Ć<>ć<>Ś<>ś<>Ś<>ś<><><>Y<>y<>I<>i<><><>E<>e<>Íý<>íý<>Íа<>íа";
+
+        String[] arrayCyrrillic = stringCyrrillic.split("<>");
+        Log.i(LOG_TAG, "arrayCyrrillic: " + arrayCyrrillic);
+        String[] arraySaebiz = stringSaebiz.split("<>");
+        String[] arrayLatin = stringLatin.split("<>");
+        String[] arrayDiacritics = stringDiacritic.split("<>");
+
+        dbHelper = new DBHelper(this);
+
+        // создаем объект для данных
+        ContentValues cv = new ContentValues();
+
+        // подключаемся к БД
+        SQLiteDatabase db = dbHelper.getWritableDatabase();
+        Log.d(LOG_TAG, "--- Insert in mytable: ---");
+        long rowID = 0;
+        for (int i = 0; i < arrayCyrrillic.length; i++) {
+            cv.put("cyrrillic", arrayCyrrillic[i]);
+            cv.put("latin", arrayLatin[i]);
+            cv.put("saebiz", arraySaebiz[i]);
+            cv.put("diacritic", arrayDiacritics[i]);
+            rowID = db.insert("mytable", null, cv);
+
+        }
+        Log.d(LOG_TAG, "row inserted, ID = " + rowID);
+    }
+
 
     @Override
     protected void onResume() {
@@ -130,7 +171,6 @@ public class Main0Activity extends AppCompatActivity implements View.OnClickList
                 startActivity(intentAlphabetActivity);
 
                 return true;
-
 
 
             default:
@@ -355,8 +395,7 @@ public class Main0Activity extends AppCompatActivity implements View.OnClickList
                             .repeat(0)
                             .playOn(findViewById(R.id.spinnerSecondState));
 
-                }
-                else {
+                } else {
                     //эффект нажатия на если выбраны diacritic и saebiz
                     YoYo.with(Techniques.Shake)
                             .duration(700)
@@ -427,9 +466,7 @@ public class Main0Activity extends AppCompatActivity implements View.OnClickList
             // mEtUpEditText присваем текст который прислали
             mEtUpEditText.setText(sharedText);
             // sentTextCatchedConverted присваем текст который приобразовали в латиницу
-            String sentTextCatchedConverted = new Converter().cyrillicToLatin(mEtUpEditText.getText().toString());
-            // mTvDown присваем текст который приобразовали в латиницу
-            mTvDown.setText(sentTextCatchedConverted);
+            convertTextFromUpToDown(mSpinnerFirstState.getSelectedItem().toString(), mSpinnerSecondState.getSelectedItem().toString());
         }
     }
 
@@ -545,45 +582,232 @@ public class Main0Activity extends AppCompatActivity implements View.OnClickList
         String saebiz = getString(R.string.app_name);
 
         String result = null;
+        SQLiteDatabase db;
+        final String LOG_TAG = "autologs";
+
+        //получаем текст из edittext
+        result = mEtUpEditText.getText().toString();
+
+        // подключаемся к БД
+        db = dbHelper.getWritableDatabase();
+        Log.d(LOG_TAG, "--- Rows in mytable: ---");
+
+        // делаем запрос всех данных из таблицы mytable, получаем Cursor
+        // TODO надо будет изменить колонки которые надо вызывать т.е. не все колонки нам нужны
+        Cursor c = db.query("mytable", null, null, null, null, null, null);
+
+
         //Проверяем какой стоит выбор
         //в зависимости от выбора будет происходить вызов соответствующего метода
         //для приобразования текста
-        //  Действие если cyrillic To Latin
-        if (textFirstSpinner.equals(cyrillic) && textSecondSpinner.equals(latin)) {
 
-            result = new Converter().cyrillicToLatin(mEtUpEditText.getText().toString());
+        //c.moveToFirst()
+        // ставим позицию курсора на первую строку выборки
+        // если в выборке нет строк, вернется false
+
+        //  Действие если cyrillic To Latin
+        if (c.moveToFirst() && textFirstSpinner.equals(cyrillic) && textSecondSpinner.equals(latin)) {
+            // определяем номера столбцов по имени в выборке
+            //                int idColIndex = c.getColumnIndex("id");
+            int idColIndex1 = c.getColumnIndex("cyrrillic");
+            int idColIndex2 = c.getColumnIndex("latin");
+            //int saebizColIndex = c.getColumnIndex("saebiz");
+            //int diacriticColIndex = c.getColumnIndex("diacritic");
+
+            do {
+                // получаем значения по номерам столбцов и пишем в String s1 и s2
+                String s1 = c.getString(idColIndex1);
+                String s2 = c.getString(idColIndex2);
+
+                if (!s1.isEmpty()) {
+                    //заменяем все символы в тексте
+                    result = result.replaceAll(s1, s2);
+                }
+
+                Log.i("a", "result: " + result);
+                // переход на следующую строку
+                // а если следующей нет (текущая - последняя), то false - выходим из цикла
+            } while (c.moveToNext());
+
+
         }
         //  Действие если cyrillic To cyrillic
-        else if (textFirstSpinner.equals(cyrillic) && textSecondSpinner.equals(cyrillic)) {
+        else if (c.moveToFirst() && textFirstSpinner.equals(cyrillic) && textSecondSpinner.equals(cyrillic)) {
             result = mEtUpEditText.getText().toString();
         }
-        //  Действие если cyrillic To Acute
-        else if (textFirstSpinner.equals(cyrillic) && textSecondSpinner.equals(diacritic)) {
-            result = new Converter().cyrillicToDiacritic(mEtUpEditText.getText().toString());
+        //  Действие если cyrillic To diacritic
+        else if (c.moveToFirst() && textFirstSpinner.equals(cyrillic) && textSecondSpinner.equals(diacritic)) {
+            // определяем номера столбцов по имени в выборке
+            int idColIndex1 = c.getColumnIndex("cyrrillic");
+            int idColIndex2 = c.getColumnIndex("diacritic");
+
+            do {
+                // получаем значения по номерам столбцов и пишем в String s1 и s2
+                String s1 = c.getString(idColIndex1);
+                String s2 = c.getString(idColIndex2);
+
+                if (!s1.isEmpty()) {
+                    //заменяем все символы в тексте
+                    result = result.replaceAll(s1, s2);
+                }
+
+                Log.i("a", "result: " + result);
+                // переход на следующую строку
+                // а если следующей нет (текущая - последняя), то false - выходим из цикла
+            } while (c.moveToNext());
+
         }
         //  Действие если cyrillic To Saebiz
-        else if (textFirstSpinner.equals(cyrillic) && textSecondSpinner.equals(saebiz)) {
-            result = new Converter().cyrillicToSaebiz(mEtUpEditText.getText().toString());
+        else if (c.moveToFirst() && textFirstSpinner.equals(cyrillic) && textSecondSpinner.equals(saebiz)) {
+            // определяем номера столбцов по имени в выборке
+            int idColIndex1 = c.getColumnIndex("cyrrillic");
+            int idColIndex2 = c.getColumnIndex("saebiz");
+
+            do {
+                // получаем значения по номерам столбцов и пишем в String s1 и s2
+                String s1 = c.getString(idColIndex1);
+                String s2 = c.getString(idColIndex2);
+
+                if (!s1.isEmpty()) {
+                    //заменяем все символы в тексте
+                    result = result.replaceAll(s1, s2);
+                }
+
+                Log.i("a", "result: " + result);
+                // переход на следующую строку
+                // а если следующей нет (текущая - последняя), то false - выходим из цикла
+            } while (c.moveToNext());
+
         }
         //  Действие если latin To latin
-        else if (textFirstSpinner.equals(latin) && textSecondSpinner.equals(latin)) {
+        else if (c.moveToFirst() && textFirstSpinner.equals(latin) && textSecondSpinner.equals(latin)) {
             result = mEtUpEditText.getText().toString();
         }
         //  Действие если latin To Cyrillic
-        else if (textFirstSpinner.equals(latin) && textSecondSpinner.equals(cyrillic)) {
-            result = new Converter().latinToCyrillic(mEtUpEditText.getText().toString());
+        else if (c.moveToFirst() && textFirstSpinner.equals(latin) && textSecondSpinner.equals(cyrillic)) {
+
+
+            // определяем номера столбцов по имени в выборке
+            int idColIndex1 = c.getColumnIndex("latin");
+            Log.i("autolog", "idColIndex1: " + idColIndex1);
+            int idColIndex2 = c.getColumnIndex("cyrrillic");
+            Log.i("autolog", "idColIndex2: " + idColIndex2);
+
+            Integer[] positionsLatin = {69, 70, 81, 82, 17, 18, 83, 84, 3, 4, 11, 12, 23, 24,
+                    25, 26, 37, 38, 41, 42, 51, 52, 55, 56, 65, 66, 67, 68, 1, 2, 5, 6, 7, 8,
+                    9, 10, 13, 14, 15, 16, 19, 20, 21, 22, 27, 28, 29, 30, 31, 32, 33, 34, 35,
+                    36, 39, 40, 43, 44, 45, 46, 47, 48, 49, 50, 53, 54, 57, 58, 59, 60, 61, 62,
+                    63, 64, 73, 74, 75, 76, 79, 80, 71, 72, 77, 78};
+
+            for (int i = 0; i < positionsLatin.length; i++) {
+                if (c.moveToPosition(positionsLatin[i])) {
+                    //перемещаемся на позицию курсора в базе
+                    ;
+
+                    Log.i("autolog", "result до: " + result);
+
+                    // получаем значения по номерам столбцов и пишем в String s1 и s2
+                    String s1 = c.getString(idColIndex1);
+                    Log.i("autolog", "s1: " + s1);
+                    String s2 = c.getString(idColIndex2);
+                    Log.i("autolog", "s2: " + s2);
+
+                    if (!s1.isEmpty()) {
+                        //заменяем все символы в тексте
+                        result = result.replaceAll(s1, s2);
+                    }
+
+                    Log.i("autolog", "result после: " + result);
+                    // переход на следующую строку
+                    // а если следующей нет (текущая - последняя), то false - выходим из цикла
+                }
+
+
+            }
+
+
         }
-        //  Действие если latin To Acute
-        else if (textFirstSpinner.equals(latin) && textSecondSpinner.equals(diacritic)) {
-            result = new Converter().latinToAcute(mEtUpEditText.getText().toString());
+        //  Действие если latin To diacritic
+        else if (c.moveToFirst() && textFirstSpinner.equals(latin) && textSecondSpinner.equals(diacritic)) {
+            // определяем номера столбцов по имени в выборке
+            int idColIndex1 = c.getColumnIndex("latin");
+            int idColIndex2 = c.getColumnIndex("diacritic");
+
+            Integer[] positionsLatin = {69, 70, 81, 82, 17, 18, 83, 84, 3, 4, 11, 12, 23, 24,
+                    25, 26, 37, 38, 41, 42, 51, 52, 55, 56, 65, 66, 67, 68, 1, 2, 5, 6, 7, 8,
+                    9, 10, 13, 14, 15, 16, 19, 20, 21, 22, 27, 28, 29, 30, 31, 32, 33, 34, 35,
+                    36, 39, 40, 43, 44, 45, 46, 47, 48, 49, 50, 53, 54, 57, 58, 59, 60, 61, 62,
+                    63, 64, 73, 74, 75, 76, 79, 80, 71, 72, 77, 78};
+
+            for (int i = 0; i < positionsLatin.length; i++) {
+                if (c.moveToPosition(positionsLatin[i])) {
+                    //перемещаемся на позицию курсора в базе
+                    ;
+
+                    Log.i("autolog", "result до: " + result);
+
+                    // получаем значения по номерам столбцов и пишем в String s1 и s2
+                    String s1 = c.getString(idColIndex1);
+                    Log.i("autolog", "s1: " + s1);
+                    String s2 = c.getString(idColIndex2);
+                    Log.i("autolog", "s2: " + s2);
+
+                    if (!s1.isEmpty()) {
+                        //заменяем все символы в тексте
+                        result = result.replaceAll(s1, s2);
+                    }
+
+                    Log.i("autolog", "result после: " + result);
+                    // переход на следующую строку
+                    // а если следующей нет (текущая - последняя), то false - выходим из цикла
+                }
+
+
+            }
         }
         //  Действие если latin To Saebiz
-        else if (textFirstSpinner.equals(latin) && textSecondSpinner.equals(saebiz)) {
-            result = new Converter().latinToSaebiz(mEtUpEditText.getText().toString());
+        else if (c.moveToFirst() && textFirstSpinner.equals(latin) && textSecondSpinner.equals(saebiz)) {
+            // определяем номера столбцов по имени в выборке
+            int idColIndex1 = c.getColumnIndex("latin");
+            int idColIndex2 = c.getColumnIndex("saebiz");
+
+            Integer[] positionsLatin = {69, 70, 81, 82, 17, 18, 83, 84, 3, 4, 11, 12, 23, 24,
+                    25, 26, 37, 38, 41, 42, 51, 52, 55, 56, 65, 66, 67, 68, 1, 2, 5, 6, 7, 8,
+                    9, 10, 13, 14, 15, 16, 19, 20, 21, 22, 27, 28, 29, 30, 31, 32, 33, 34, 35,
+                    36, 39, 40, 43, 44, 45, 46, 47, 48, 49, 50, 53, 54, 57, 58, 59, 60, 61, 62,
+                    63, 64, 73, 74, 75, 76, 79, 80, 71, 72, 77, 78};
+
+            for (int i = 0; i < positionsLatin.length; i++) {
+                if (c.moveToPosition(positionsLatin[i])) {
+                    //перемещаемся на позицию курсора в базе
+                    ;
+
+                    Log.i("autolog", "result до: " + result);
+
+                    // получаем значения по номерам столбцов и пишем в String s1 и s2
+                    String s1 = c.getString(idColIndex1);
+                    Log.i("autolog", "s1: " + s1);
+                    String s2 = c.getString(idColIndex2);
+                    Log.i("autolog", "s2: " + s2);
+
+                    if (!s1.isEmpty()) {
+                        //заменяем все символы в тексте
+                        result = result.replaceAll(s1, s2);
+                    }
+
+                    Log.i("autolog", "result после: " + result);
+                    // переход на следующую строку
+                    // а если следующей нет (текущая - последняя), то false - выходим из цикла
+                }
+
+
+            }
         }
 
         //Присваем mTvSecondState уже преобразованный текст
         mTvDown.setText(result);
+
+        c.close();
     }
 
 }

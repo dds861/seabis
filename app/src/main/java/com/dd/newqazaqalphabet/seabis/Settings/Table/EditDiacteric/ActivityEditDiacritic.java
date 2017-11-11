@@ -35,6 +35,7 @@ public class ActivityEditDiacritic extends AppCompatActivity {
                 Toast.makeText(ActivityEditDiacritic.this, adapter.getItem(i), Toast.LENGTH_SHORT).show();
 
 
+
             }
         });
 
