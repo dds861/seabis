@@ -2,7 +2,6 @@ package com.dd.newqazaqalphabet.seabis;
 
 import android.content.ClipData;
 import android.content.ClipboardManager;
-import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -26,7 +25,9 @@ import android.widget.Toast;
 
 import com.daimajia.androidanimations.library.Techniques;
 import com.daimajia.androidanimations.library.YoYo;
-import com.dd.newqazaqalphabet.seabis.Settings.ActivitySettings;
+import com.dd.newqazaqalphabet.seabis.Database.CreateDatabase;
+import com.dd.newqazaqalphabet.seabis.Database.DBHelper;
+import com.dd.newqazaqalphabet.seabis.Settings.Table.ActivityTable;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
 
@@ -56,7 +57,6 @@ public class Main0Activity extends AppCompatActivity implements View.OnClickList
     ArrayAdapter<String> adapterFirstSpinner;
     ArrayAdapter<String> adapterSecondSpinner;
 
-    DBHelper dbHelper;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -66,6 +66,14 @@ public class Main0Activity extends AppCompatActivity implements View.OnClickList
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main0);
 
+        DBHelper dbHelper = new DBHelper(this);
+        SQLiteDatabase db = dbHelper.getWritableDatabase();
+        Cursor c = db.query("mytable", null, null, null, null, null, null);
+        if (c.getCount() == 0) {
+            new CreateDatabase().createDatabaseFirstTimeAppLaunch(getApplicationContext());
+        }
+        c.close();
+        dbHelper.close();
 
         //Находим все компоненты в activity
         initView();
@@ -87,42 +95,7 @@ public class Main0Activity extends AppCompatActivity implements View.OnClickList
         //Обрабатываем второй спиннер R.id.spinnerFirstState
         spinnerSecondState();
 
-        createDatabase();
 
-    }
-
-    void createDatabase() {
-        final String LOG_TAG = "myLogs";
-
-        String stringCyrrillic = "А<>а<>Ә<>ә<>Б<>б<>В<>в<>Г<>г<>Ғ<>ғ<>Д<>д<>Е<>е<>Ё<>ё<>Ж<>ж<>З<>з<>И<>и<>Й<>й<>К<>к<>Қ<>қ<>Л<>л<>М<>м<>Н<>н<>Ң<>ң<>О<>о<>Ө<>ө<>П<>п<>Р<>р<>С<>с<>Т<>т<>У<>у<>Ұ<>ұ<>Ү<>ү<>Ф<>ф<>Х<>х<>Һ<>һ<>Ц<>ц<>Ч<>ч<>Ш<>ш<>Щ<>щ<>Ъ<>ъ<>Ы<>ы<>І<>і<>Ь<>ь<>Э<>э<>Ю<>ю<>Я<>я";
-        String stringSaebiz = "A<>a<>Ae<>ae<>B<>b<>V<>v<>G<>g<>Gh<>gh<>D<>d<>E<>e<>E<>e<>Zh<>zh<>Z<>z<>I<>i<>J<>j<>K<>k<>Q<>q<>L<>l<>M<>m<>N<>n<>Ng<>ng<>O<>o<>Oe<>oe<>P<>p<>R<>r<>S<>s<>T<>t<>W<>w<>U<>u<>Ue<>ue<>F<>f<>H<>h<>H<>h<>C<>c<>Ch<>ch<>Sh<>sh<>Sh<>sh<><><>Y<>y<>I<>i<><><>E<>e<>Iy<>iy<>Ia<>ia";
-        String stringLatin = "A<>a<>A'<>a'<>B<>b<>V<>v<>G<>g<>G'<>g'<>D<>d<>E<>e<>I'o<>i'o<>J<>j<>Z<>z<>I'<>i'<>I'<>i'<>K<>k<>Q<>q<>L<>l<>M<>m<>N<>n<>N'<>n'<>O<>o<>O'<>o'<>P<>p<>R<>r<>S<>s<>T<>t<>Y'<>y'<>U<>u<>U'<>u'<>F<>f<>H<>h<>H<>h<>C<>c<>C'<>c'<>S'<>s'<>S's'<>S's'<><><>Y<>y<>I<>i<><><>E<>e<>I'y'<>i'y'<>I'a<>i'a";
-        String stringDiacritic = "A<>a<>À<>à<>B<>b<>V<>v<>G<>g<>Ǵ<>ǵ<>D<>d<>E<>e<>È<>è<>J<>j<>Z<>z<>Í<>í<>Í<>í<>K<>k<>Ḱ<>ḱ<>L<>l<>M<>m<>N<>n<>Ń<>ń<>O<>o<>Ó<>ó<>P<>p<>R<>r<>S<>s<>T<>t<>Ý<>ý<>U<>u<>Ú<>ú<>F<>f<>H<>h<>H<>h<>C<>c<>Ć<>ć<>Ś<>ś<>Ś<>ś<><><>Y<>y<>I<>i<><><>E<>e<>Íý<>íý<>Íа<>íа";
-
-        String[] arrayCyrrillic = stringCyrrillic.split("<>");
-        Log.i(LOG_TAG, "arrayCyrrillic: " + arrayCyrrillic);
-        String[] arraySaebiz = stringSaebiz.split("<>");
-        String[] arrayLatin = stringLatin.split("<>");
-        String[] arrayDiacritics = stringDiacritic.split("<>");
-
-        dbHelper = new DBHelper(this);
-
-        // создаем объект для данных
-        ContentValues cv = new ContentValues();
-
-        // подключаемся к БД
-        SQLiteDatabase db = dbHelper.getWritableDatabase();
-        Log.d(LOG_TAG, "--- Insert in mytable: ---");
-        long rowID = 0;
-        for (int i = 0; i < arrayCyrrillic.length; i++) {
-            cv.put("cyrrillic", arrayCyrrillic[i]);
-            cv.put("latin", arrayLatin[i]);
-            cv.put("saebiz", arraySaebiz[i]);
-            cv.put("diacritic", arrayDiacritics[i]);
-            rowID = db.insert("mytable", null, cv);
-
-        }
-        Log.d(LOG_TAG, "row inserted, ID = " + rowID);
     }
 
 
@@ -166,13 +139,10 @@ public class Main0Activity extends AppCompatActivity implements View.OnClickList
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
-            case R.id.action_settings:
-                Intent intentAlphabetActivity = new Intent(getApplicationContext(), ActivitySettings.class);
-                startActivity(intentAlphabetActivity);
-
+                case R.id.action_my_alphabet:
+                Intent intent2 = new Intent(getApplicationContext(), ActivityTable.class);
+                startActivity(intent2);
                 return true;
-
-
             default:
                 // If we got here, the user's action was not recognized.
                 // Invoke the superclass to handle it.
@@ -221,7 +191,7 @@ public class Main0Activity extends AppCompatActivity implements View.OnClickList
 
         String s1 = getString(R.string.cyrillic);
         String s2 = getString(R.string.latin);
-        String s3 = getString(R.string.diacritic);
+        String s3 = getString(R.string.myAlphabet);
         String s4 = getString(R.string.app_name);
 
         ArrayList<String> arrayListSecondSpinner = new ArrayList<>();
@@ -279,36 +249,32 @@ public class Main0Activity extends AppCompatActivity implements View.OnClickList
     }
 
 
+    void makeAnimationOnView(int resourceId, Techniques techniques, int duration, int repeat) {
+        YoYo.with(techniques)
+                .duration(duration)
+                .repeat(repeat)
+                .playOn(findViewById(resourceId));
+
+    }
+
     //Обрабатываем нажатие всех компонентов
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
 
             case R.id.ivDelete:
-                //эффект нажатия на кнопку action_clean
-                YoYo.with(Techniques.FadeOut)
-                        .duration(150)
-                        .repeat(0)
-                        .playOn(findViewById(R.id.ivDelete));
+                //эффект нажатия на кнопку
+                makeAnimationOnView(R.id.ivDelete, Techniques.FadeOut, 150, 0);
+                makeAnimationOnView(R.id.ivDelete, Techniques.FadeIn, 350, 0);
 
-                YoYo.with(Techniques.FadeIn)
-                        .duration(350)
-                        .repeat(0)
-                        .playOn(findViewById(R.id.ivDelete));
                 //edittext равно Пустота
                 mEtUpEditText.setText("");
                 mTvDown.setText("");
                 break;
             case R.id.ivInsert:
-                //эффект нажатия на кнопку action_insert
-                YoYo.with(Techniques.FadeOut)
-                        .duration(150)
-                        .repeat(0)
-                        .playOn(findViewById(R.id.ivInsert));
-                YoYo.with(Techniques.FadeIn)
-                        .duration(350)
-                        .repeat(0)
-                        .playOn(findViewById(R.id.ivInsert));
+                //эффект нажатия на кнопку
+                makeAnimationOnView(R.id.ivInsert, Techniques.FadeOut, 150, 0);
+                makeAnimationOnView(R.id.ivInsert, Techniques.FadeIn, 350, 0);
 
                 //Вставляем в edittext - текст с буфера обмена
                 ClipboardManager clipboard = (ClipboardManager) getSystemService(CLIPBOARD_SERVICE);
@@ -318,14 +284,9 @@ public class Main0Activity extends AppCompatActivity implements View.OnClickList
                 mEtUpEditText.setText(oldText + newText);
                 break;
             case R.id.ivCopyAll:
-                YoYo.with(Techniques.FadeOut)
-                        .duration(150)
-                        .repeat(0)
-                        .playOn(findViewById(R.id.ivCopyAll));
-                YoYo.with(Techniques.FadeIn)
-                        .duration(350)
-                        .repeat(0)
-                        .playOn(findViewById(R.id.ivCopyAll));
+                //эффект нажатия на кнопку
+                makeAnimationOnView(R.id.ivCopyAll, Techniques.FadeOut, 150, 0);
+                makeAnimationOnView(R.id.ivCopyAll, Techniques.FadeIn, 350, 0);
 
                 // Gets a handle to the clipboard service.
                 ClipboardManager clipboard2 = (ClipboardManager) getSystemService(Context.CLIPBOARD_SERVICE);
@@ -338,14 +299,9 @@ public class Main0Activity extends AppCompatActivity implements View.OnClickList
                 Toast.makeText(this, R.string.TextCopied, Toast.LENGTH_SHORT).show();
                 break;
             case R.id.ivShare:
-                YoYo.with(Techniques.FadeOut)
-                        .duration(150)
-                        .repeat(0)
-                        .playOn(findViewById(R.id.ivShare));
-                YoYo.with(Techniques.FadeIn)
-                        .duration(350)
-                        .repeat(0)
-                        .playOn(findViewById(R.id.ivShare));
+                //эффект нажатия на кнопку
+                makeAnimationOnView(R.id.ivShare, Techniques.FadeOut, 150, 0);
+                makeAnimationOnView(R.id.ivShare, Techniques.FadeIn, 350, 0);
 
                 String shareBody = mTvDown.getText().toString();
                 Intent sharingIntent = new Intent(Intent.ACTION_SEND);
@@ -357,7 +313,7 @@ public class Main0Activity extends AppCompatActivity implements View.OnClickList
             case R.id.ivChangeButtonspinner://кнопка когда меняется местами спиннер
 
                 //получаем название diacritic и app_name из strings.xml
-                String diacritic = getString(R.string.diacritic);
+                String diacritic = getString(R.string.myAlphabet);
                 String saebiz = getString(R.string.app_name);
 
                 //получаем текущий item в спиннере 2 (mSpinnerSecondState)
@@ -366,42 +322,22 @@ public class Main0Activity extends AppCompatActivity implements View.OnClickList
                 if (!resultSecondState.equals(diacritic) && !resultSecondState.equals(saebiz)) {
 
                     //эффект нажатия на кнопку ivChangeButton
-                    YoYo.with(Techniques.RotateOut)
-                            .duration(350)
-                            .repeat(0)
-                            .playOn(findViewById(R.id.ivChangeButtonspinner));
-                    YoYo.with(Techniques.RotateIn)
-                            .duration(350)
-                            .repeat(0)
-                            .playOn(findViewById(R.id.ivChangeButtonspinner));
+                    makeAnimationOnView(R.id.ivChangeButtonspinner, Techniques.RotateOut, 150, 0);
+                    makeAnimationOnView(R.id.ivChangeButtonspinner, Techniques.RotateIn, 350, 0);
+
 
                     //эффект нажатия на textview mTvFirstState
-                    YoYo.with(Techniques.SlideInLeft)
-                            .duration(350)
-                            .repeat(0)
-                            .playOn(findViewById(R.id.spinnerFirstState));
-                    YoYo.with(Techniques.SlideInRight)
-                            .duration(350)
-                            .repeat(0)
-                            .playOn(findViewById(R.id.spinnerFirstState));
+                    makeAnimationOnView(R.id.spinnerFirstState, Techniques.SlideInLeft, 150, 0);
+                    makeAnimationOnView(R.id.spinnerFirstState, Techniques.SlideInRight, 350, 0);
+
 
                     //эффект нажатия на textview mTvSecondState
-                    YoYo.with(Techniques.SlideInRight)
-                            .duration(350)
-                            .repeat(0)
-                            .playOn(findViewById(R.id.spinnerSecondState));
-                    YoYo.with(Techniques.SlideInLeft)
-                            .duration(350)
-                            .repeat(0)
-                            .playOn(findViewById(R.id.spinnerSecondState));
+                    makeAnimationOnView(R.id.spinnerSecondState, Techniques.SlideInRight, 150, 0);
+                    makeAnimationOnView(R.id.spinnerSecondState, Techniques.SlideInLeft, 350, 0);
 
                 } else {
                     //эффект нажатия на если выбраны diacritic и saebiz
-                    YoYo.with(Techniques.Shake)
-                            .duration(700)
-                            .repeat(0)
-                            .playOn(findViewById(R.id.spinnerSecondState));
-
+                    makeAnimationOnView(R.id.spinnerSecondState, Techniques.Shake, 700, 0);
 
                 }
                 //Меняем местами название First and Second textviews
@@ -554,7 +490,7 @@ public class Main0Activity extends AppCompatActivity implements View.OnClickList
     //Меняем местами название First and Second textviews
     void changePlacesSpinnerCyrillicLatin() {
         //получаем название diacritic и app_name из strings.xml
-        String diacritic = getString(R.string.diacritic);
+        String diacritic = getString(R.string.myAlphabet);
         String saebiz = getString(R.string.app_name);
 
         //получаем текущий item в спиннере 2 (mSpinnerSecondState)
@@ -578,23 +514,23 @@ public class Main0Activity extends AppCompatActivity implements View.OnClickList
 
         String latin = getString(R.string.latin);
         String cyrillic = getString(R.string.cyrillic);
-        String diacritic = getString(R.string.diacritic);
+        String diacritic = getString(R.string.myAlphabet);
         String saebiz = getString(R.string.app_name);
 
         String result = null;
         SQLiteDatabase db;
-        final String LOG_TAG = "autologs";
+        DBHelper dbHelper = new DBHelper(this);
+
 
         //получаем текст из edittext
         result = mEtUpEditText.getText().toString();
 
         // подключаемся к БД
-        db = dbHelper.getWritableDatabase();
-        Log.d(LOG_TAG, "--- Rows in mytable: ---");
+        db = dbHelper.getReadableDatabase();
 
         // делаем запрос всех данных из таблицы mytable, получаем Cursor
         // TODO надо будет изменить колонки которые надо вызывать т.е. не все колонки нам нужны
-        Cursor c = db.query("mytable", null, null, null, null, null, null);
+        Cursor c = db.query(getString(R.string.mytable), null, null, null, null, null, null);
 
 
         //Проверяем какой стоит выбор
@@ -608,23 +544,24 @@ public class Main0Activity extends AppCompatActivity implements View.OnClickList
         //  Действие если cyrillic To Latin
         if (c.moveToFirst() && textFirstSpinner.equals(cyrillic) && textSecondSpinner.equals(latin)) {
             // определяем номера столбцов по имени в выборке
-            //                int idColIndex = c.getColumnIndex("id");
-            int idColIndex1 = c.getColumnIndex("cyrrillic");
+            int idColIndex1 = c.getColumnIndex("cyrillic");
             int idColIndex2 = c.getColumnIndex("latin");
-            //int saebizColIndex = c.getColumnIndex("saebiz");
-            //int diacriticColIndex = c.getColumnIndex("diacritic");
 
             do {
                 // получаем значения по номерам столбцов и пишем в String s1 и s2
                 String s1 = c.getString(idColIndex1);
+                Log.i("autolog", "s1: " + s1);
                 String s2 = c.getString(idColIndex2);
+                Log.i("autolog", "s2: " + s2);
 
                 if (!s1.isEmpty()) {
+                    Log.i("autolog", "до result: " + result);
                     //заменяем все символы в тексте
                     result = result.replaceAll(s1, s2);
+                    Log.i("autolog", "после result: " + result);
                 }
 
-                Log.i("a", "result: " + result);
+
                 // переход на следующую строку
                 // а если следующей нет (текущая - последняя), то false - выходим из цикла
             } while (c.moveToNext());
@@ -638,20 +575,22 @@ public class Main0Activity extends AppCompatActivity implements View.OnClickList
         //  Действие если cyrillic To diacritic
         else if (c.moveToFirst() && textFirstSpinner.equals(cyrillic) && textSecondSpinner.equals(diacritic)) {
             // определяем номера столбцов по имени в выборке
-            int idColIndex1 = c.getColumnIndex("cyrrillic");
+            int idColIndex1 = c.getColumnIndex("cyrillic");
             int idColIndex2 = c.getColumnIndex("diacritic");
 
             do {
                 // получаем значения по номерам столбцов и пишем в String s1 и s2
                 String s1 = c.getString(idColIndex1);
+                Log.i("autolog", "s1: " + s1);
                 String s2 = c.getString(idColIndex2);
-
+                Log.i("autolog", "s2: " + s2);
+                Log.i("autolog", "до result: " + result);
                 if (!s1.isEmpty()) {
                     //заменяем все символы в тексте
                     result = result.replaceAll(s1, s2);
                 }
 
-                Log.i("a", "result: " + result);
+                Log.i("autolog", "после result: " + result);
                 // переход на следующую строку
                 // а если следующей нет (текущая - последняя), то false - выходим из цикла
             } while (c.moveToNext());
@@ -660,7 +599,7 @@ public class Main0Activity extends AppCompatActivity implements View.OnClickList
         //  Действие если cyrillic To Saebiz
         else if (c.moveToFirst() && textFirstSpinner.equals(cyrillic) && textSecondSpinner.equals(saebiz)) {
             // определяем номера столбцов по имени в выборке
-            int idColIndex1 = c.getColumnIndex("cyrrillic");
+            int idColIndex1 = c.getColumnIndex("cyrillic");
             int idColIndex2 = c.getColumnIndex("saebiz");
 
             do {
@@ -690,7 +629,7 @@ public class Main0Activity extends AppCompatActivity implements View.OnClickList
             // определяем номера столбцов по имени в выборке
             int idColIndex1 = c.getColumnIndex("latin");
             Log.i("autolog", "idColIndex1: " + idColIndex1);
-            int idColIndex2 = c.getColumnIndex("cyrrillic");
+            int idColIndex2 = c.getColumnIndex("cyrillic");
             Log.i("autolog", "idColIndex2: " + idColIndex2);
 
             Integer[] positionsLatin = {69, 70, 81, 82, 17, 18, 83, 84, 3, 4, 11, 12, 23, 24,
@@ -808,6 +747,8 @@ public class Main0Activity extends AppCompatActivity implements View.OnClickList
         mTvDown.setText(result);
 
         c.close();
+        dbHelper.close();
+
     }
 
 }

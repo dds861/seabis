@@ -13,5 +13,5 @@
     <string name="TextCopied">Text copied</string>
     <string name="cyrillic">Cyrillic</string>
     <string name="latin">Latin</string>
-    <string name="diacritic">Diacritic</string>
+    <string name="myAlphabet">MyAlphabet</string>
 </resources>

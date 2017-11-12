@@ -13,5 +13,5 @@
     <string name="TextCopied">Текст скопирован</string>
     <string name="cyrillic">Кириллица</string>
     <string name="latin">Латиница</string>
-    <string name="diacritic">Диакритика</string>
+    <string name="myAlphabet">МойАлфавит</string>
 </resources>

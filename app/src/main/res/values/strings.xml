@@ -14,7 +14,7 @@
     <string name="banner_ad_unit_id" translatable="false">ca-app-pub-3940256099942544/6300978111</string>
     <string name="cyrillic">Кириллица</string>
     <string name="latin">Латиница</string>
-    <string name="diacritic">Диакритика</string>
+    <string name="myAlphabet">МойАлфавит</string>
     <string name="unicode1BasicLatinASCII">Unicode1BasicLatinASCII</string>
     <string name="unicode2Latin1Supplement">Unicode2Latin1Supplement</string>
     <string name="unicode3LatinExtendedA">Unicode3LatinExtendedA</string>
@@ -28,4 +28,5 @@
     <string name="unicode11IpaExtensions">Unicode11IpaExtensions</string>
     <string name="unicode12PhoneticExtensions">Unicode12PhoneticExtensions</string>
     <string name="unicode13PhoneticExtensionsSupplement">Unicode13PhoneticExtensionsSupplement</string>
+    <string name="mytable">mytable</string>
 </resources>

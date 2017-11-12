@@ -1,32 +1,32 @@
-package com.dd.newqazaqalphabet.seabis;
+package com.dd.newqazaqalphabet.seabis.Database;
 
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
-/**
- * Created by dds86 on 10-Nov-17.
- */
+import com.dd.newqazaqalphabet.seabis.R;
 
 public class DBHelper extends SQLiteOpenHelper {
     final String LOG_TAG = "myLogs";
+    Context context;
 
     public DBHelper(Context context) {
         // конструктор суперкласса
         super(context, "myDB", null, 1);
+        this.context = context;
     }
 
     @Override
     public void onCreate(SQLiteDatabase db) {
         Log.d(LOG_TAG, "--- onCreate database ---");
         // создаем таблицу с полями
-        db.execSQL("create table mytable ("
+        db.execSQL("create table " + context.getString(R.string.mytable) + " ("
                 + "id integer primary key autoincrement,"
                 + "latin text,"
                 + "saebiz text,"
                 + "diacritic text,"
-                + "cyrrillic text" + ");");
+                + "cyrillic text" + ");");
     }
 
     @Override

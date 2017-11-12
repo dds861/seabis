@@ -7,6 +7,7 @@ package com.dd.newqazaqalphabet.seabis.Settings.Table;
 public class TableProduct {
     String textView1, textView2, textView3, textView4;
 
+
     public String getTextView1() {
         return textView1;
     }
@@ -22,6 +23,8 @@ public class TableProduct {
     public String getTextView4() {
         return textView4;
     }
+
+
 
     public void setTextView1(String textView1) {
         this.textView1 = textView1;

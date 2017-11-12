@@ -1,7 +1,10 @@
 package com.dd.newqazaqalphabet.seabis.Settings.Table.EditDiacteric;
 
+import android.content.ContentValues;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -9,6 +12,7 @@ import android.widget.GridView;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import com.dd.newqazaqalphabet.seabis.Database.DBHelper;
 import com.dd.newqazaqalphabet.seabis.R;
 
 import java.util.ArrayList;
@@ -19,6 +23,7 @@ public class ActivityEditDiacritic extends AppCompatActivity {
     private Spinner mSpinnerFirstState;
     private GridView mGvMain;
     ArrayAdapter<String> adapter;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         //Восстанавливаем тему после лого
@@ -31,13 +36,32 @@ public class ActivityEditDiacritic extends AppCompatActivity {
 
         mGvMain.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                Toast.makeText(ActivityEditDiacritic.this, adapter.getItem(i), Toast.LENGTH_SHORT).show();
+            public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
+                Toast.makeText(ActivityEditDiacritic.this, adapter.getItem(position), Toast.LENGTH_SHORT).show();
 
+                DBHelper dbHelper = new DBHelper(getApplicationContext());
 
+                // создаем объект для данных
+                ContentValues cv = new ContentValues();
 
+                // подключаемся к БД
+                SQLiteDatabase db = dbHelper.getWritableDatabase();
+                Log.d("autologs", "--- Update mytable: ---");
+                // подготовим значения для обновления
+                cv.put("diacritic", adapter.getItem(position));
+
+                String position_ = getIntent().getStringExtra("position");
+
+                // обновляем по id
+                int updCount = db.update(getString(R.string.mytable), cv, "id = ?",
+                        new String[]{position_});
+                Log.d("autologs", "updated rows count = " + updCount);
+                dbHelper.close();
+                finish();
             }
+
         });
+
 
     }
 
@@ -80,7 +104,7 @@ public class ActivityEditDiacritic extends AppCompatActivity {
         // заголовок
         mSpinnerFirstState.setPrompt("Title");
         // по умолчанию ставим кириллицу
-        mSpinnerFirstState.setSelection(0);
+        mSpinnerFirstState.setSelection(2);
 
         //Обрабатываем нажатие каждого item  в спиннере
         mSpinnerFirstState.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
