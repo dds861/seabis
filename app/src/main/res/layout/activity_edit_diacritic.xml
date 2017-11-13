@@ -8,11 +8,12 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="8dp"
-        android:text="Choose symbol:"
+        android:padding="16dp"
+        android:text="@string/activity_edit"
         android:textAlignment="center"
         android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-        android:textColor="@color/secondary_text" />
+        android:textColor="@color/primary_text"
+        android:textStyle="bold" />
 
     <View
         android:layout_width="fill_parent"
@@ -24,9 +25,9 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal|center_vertical"
-
-        android:layout_margin="16dp"
         android:gravity="center"
+        android:padding="16dp"
+
         android:textAppearance="@style/TextAppearance.AppCompat.Medium"
         android:textColor="@color/primary" />
 

@@ -7,10 +7,26 @@
     android:orientation="vertical"
     tools:context="com.dd.newqazaqalphabet.seabis.Settings.Table.ActivityTable">
 
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="16dp"
+        android:gravity="center"
+        android:textColor="@color/primary_text"
+        android:text="@string/activity_table_text"
+        android:textStyle="bold"
+        android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
+
+    <View
+        android:layout_width="fill_parent"
+        android:layout_height="1dp"
+        android:background="@color/divider" />
+
     <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal">
+
 
         <TextView
             android:id="@+id/text12"
@@ -22,10 +38,12 @@
             android:paddingTop="16dp"
             android:text="@string/cyrillic"
             android:textColor="@color/primary_text" />
+
         <View
             android:layout_width="1dp"
             android:layout_height="fill_parent"
             android:background="@color/divider" />
+
         <TextView
             android:id="@+id/text22"
             android:layout_width="match_parent"
@@ -36,10 +54,12 @@
             android:paddingTop="16dp"
             android:text="@string/latin"
             android:textColor="@color/primary_text" />
+
         <View
             android:layout_width="1dp"
             android:layout_height="fill_parent"
             android:background="@color/divider" />
+
         <TextView
             android:id="@+id/text32"
             android:layout_width="match_parent"
@@ -50,10 +70,12 @@
             android:paddingTop="16dp"
             android:text="@string/app_name"
             android:textColor="@color/primary_text" />
+
         <View
             android:layout_width="1dp"
             android:layout_height="fill_parent"
             android:background="@color/divider" />
+
         <TextView
             android:id="@+id/text42"
             android:layout_width="match_parent"
@@ -63,7 +85,8 @@
             android:paddingBottom="16dp"
             android:paddingTop="16dp"
             android:text="@string/myAlphabet"
-            android:textColor="@color/primary_text" />
+            android:textColor="@color/primary_text"
+            android:textStyle="bold" />
 
         <TextView
             android:id="@+id/text52"
@@ -91,8 +114,7 @@
             android:id="@+id/listViewAlphabet"
             android:layout_width="match_parent"
 
-            android:layout_height="match_parent"
-             />
+            android:layout_height="match_parent" />
         <!--android:listSelector="@android:color/transparent"-->
     </LinearLayout>
 </LinearLayout>

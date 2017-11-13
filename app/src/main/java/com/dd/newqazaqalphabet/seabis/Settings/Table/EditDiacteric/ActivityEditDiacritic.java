@@ -1,6 +1,7 @@
 package com.dd.newqazaqalphabet.seabis.Settings.Table.EditDiacteric;
 
 import android.content.ContentValues;
+import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -57,6 +58,10 @@ public class ActivityEditDiacritic extends AppCompatActivity {
                         new String[]{position_});
                 Log.d("autologs", "updated rows count = " + updCount);
                 dbHelper.close();
+
+                Intent intent = new Intent();
+                intent.putExtra("currentListviewPosition",getIntent().getExtras().getParcelable("currentListviewPosition"));
+                setResult(RESULT_OK, intent);
                 finish();
             }
 

@@ -12,23 +12,21 @@ import com.dd.newqazaqalphabet.seabis.R;
  */
 
 public class CreateDatabase {
+    private String[] arrayCyrillic2;
+    private String[] arrayLatin2;
+    private String[] arrayDiacritics2;
+    private String[] arraySaebiz2;
 
-
+    public CreateDatabase(String[] arrayCyrillic2, String[] arrayLatin2, String[] arrayDiacritics2, String[] arraySaebiz2) {
+        this.arrayCyrillic2 = arrayCyrillic2;
+        this.arrayLatin2 = arrayLatin2;
+        this.arrayDiacritics2 = arrayDiacritics2;
+        this.arraySaebiz2 = arraySaebiz2;
+    }
 
     public void createDatabaseFirstTimeAppLaunch(Context context) {
         final String LOG_TAG = "autolog";
         DBHelper dbHelper;
-
-        String stringCyrillic = "А<>а<>Ә<>ә<>Б<>б<>В<>в<>Г<>г<>Ғ<>ғ<>Д<>д<>Е<>е<>Ё<>ё<>Ж<>ж<>З<>з<>И<>и<>Й<>й<>К<>к<>Қ<>қ<>Л<>л<>М<>м<>Н<>н<>Ң<>ң<>О<>о<>Ө<>ө<>П<>п<>Р<>р<>С<>с<>Т<>т<>У<>у<>Ұ<>ұ<>Ү<>ү<>Ф<>ф<>Х<>х<>Һ<>һ<>Ц<>ц<>Ч<>ч<>Ш<>ш<>Щ<>щ<>Ъ<>ъ<>Ы<>ы<>І<>і<>Ь<>ь<>Э<>э<>Ю<>ю<>Я<>я";
-        String stringSaebiz = "A<>a<>Ae<>ae<>B<>b<>V<>v<>G<>g<>Gh<>gh<>D<>d<>E<>e<>E<>e<>Zh<>zh<>Z<>z<>I<>i<>J<>j<>K<>k<>Q<>q<>L<>l<>M<>m<>N<>n<>Ng<>ng<>O<>o<>Oe<>oe<>P<>p<>R<>r<>S<>s<>T<>t<>W<>w<>U<>u<>Ue<>ue<>F<>f<>H<>h<>H<>h<>C<>c<>Ch<>ch<>Sh<>sh<>Sh<>sh<><><>Y<>y<>I<>i<><><>E<>e<>Iy<>iy<>Ia<>ia";
-        String stringLatin = "A<>a<>A'<>a'<>B<>b<>V<>v<>G<>g<>G'<>g'<>D<>d<>E<>e<>I'o<>i'o<>J<>j<>Z<>z<>I'<>i'<>I'<>i'<>K<>k<>Q<>q<>L<>l<>M<>m<>N<>n<>N'<>n'<>O<>o<>O'<>o'<>P<>p<>R<>r<>S<>s<>T<>t<>Y'<>y'<>U<>u<>U'<>u'<>F<>f<>H<>h<>H<>h<>C<>c<>C'<>c'<>S'<>s'<>S's'<>S's'<><><>Y<>y<>I<>i<><><>E<>e<>I'y'<>i'y'<>I'a<>i'a";
-        String stringDiacritic = "A<>a<>À<>à<>B<>b<>V<>v<>G<>g<>Ǵ<>ǵ<>D<>d<>E<>e<>È<>è<>J<>j<>Z<>z<>Í<>í<>Í<>í<>K<>k<>Ḱ<>ḱ<>L<>l<>M<>m<>N<>n<>Ń<>ń<>O<>o<>Ó<>ó<>P<>p<>R<>r<>S<>s<>T<>t<>Ý<>ý<>U<>u<>Ú<>ú<>F<>f<>H<>h<>H<>h<>C<>c<>Ć<>ć<>Ś<>ś<>Ś<>ś<><><>Y<>y<>I<>i<><><>E<>e<>Íý<>íý<>Íа<>íа";
-
-        String[] arrayCyrillic = stringCyrillic.split("<>");
-        Log.i(LOG_TAG, "arrayCyrillic: " + arrayCyrillic);
-        String[] arraySaebiz = stringSaebiz.split("<>");
-        String[] arrayLatin = stringLatin.split("<>");
-        String[] arrayDiacritics = stringDiacritic.split("<>");
 
         dbHelper = new DBHelper(context);
 
@@ -42,11 +40,11 @@ public class CreateDatabase {
 
 
         Log.d(LOG_TAG, "--- Insert in mytable: ---");
-        for (int i = 0; i < arrayCyrillic.length; i++) {
-            cv.put("cyrillic", arrayCyrillic[i]);
-            cv.put("latin", arrayLatin[i]);
-            cv.put("saebiz", arraySaebiz[i]);
-            cv.put("diacritic", arrayDiacritics[i]);
+        for (int i = 0; i < arrayCyrillic2.length; i++) {
+            cv.put("cyrillic", arrayCyrillic2[i]);
+            cv.put("latin", arrayLatin2[i]);
+            cv.put("saebiz", arraySaebiz2[i]);
+            cv.put("diacritic", arrayDiacritics2[i]);
             db.insert(context.getString(R.string.mytable), null, cv);
 
         }

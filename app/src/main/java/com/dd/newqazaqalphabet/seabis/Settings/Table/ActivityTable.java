@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
@@ -22,6 +23,8 @@ public class ActivityTable extends AppCompatActivity {
 
 
     private ImageView mImageViewEdit;
+    ListView listView;
+    Parcelable state = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,18 +34,22 @@ public class ActivityTable extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_table);
 
-
-
-
+        setTitle(getString(R.string.activity_table_title_actionbar));
     }
+
     @Override
     protected void onResume() {
         super.onResume();
         loadDataToTable();
+        if (state != null) {
+
+            listView.onRestoreInstanceState(state);
+
+        }
 
     }
 
-    void loadDataToTable(){
+    void loadDataToTable() {
         DBHelper dbHelper = new DBHelper(this);
 
         // подключаемся к БД
@@ -79,8 +86,8 @@ public class ActivityTable extends AppCompatActivity {
 
         TableAdapter myAdapter = new TableAdapter(getApplicationContext(), products);
 
-        ListView listView = (ListView) findViewById(R.id.listViewAlphabet);
 
+        listView = (ListView) findViewById(R.id.listViewAlphabet);
 
         listView.setAdapter(myAdapter);
 
@@ -88,11 +95,28 @@ public class ActivityTable extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
                 Intent intent = new Intent(getApplicationContext(), ActivityEditDiacritic.class);
-                intent.putExtra("position", String.valueOf(position+1));
-                Log.i("autolog", "view.getTag(): " + position);
-                startActivity(intent);
+                intent.putExtra("position", String.valueOf(position + 1));
+
+                //Сохраняем текущую позицию, when we return, listview will be returned to previous state
+                Parcelable state = listView.onSaveInstanceState();
+                intent.putExtra("currentListviewPosition", state);
+
+                //Запускаем новый активити
+                startActivityForResult(intent, 1);
             }
         });
 
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (data == null) {
+            return;
+        }
+        if (resultCode == RESULT_OK) {
+            state = data.getExtras().getParcelable("currentListviewPosition");
+
+        }
     }
 }

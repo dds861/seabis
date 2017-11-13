@@ -124,6 +124,7 @@
                             android:hint="@string/enter_text_in_cyrillic_kazakh"
                             android:paddingBottom="16dp"
                             android:paddingTop="16dp"
+
                             android:textAppearance="@style/TextAppearance.AppCompat.Medium"
                             android:textColor="@color/primary_text" />
 

@@ -70,7 +70,16 @@ public class Main0Activity extends AppCompatActivity implements View.OnClickList
         SQLiteDatabase db = dbHelper.getWritableDatabase();
         Cursor c = db.query("mytable", null, null, null, null, null, null);
         if (c.getCount() == 0) {
-            new CreateDatabase().createDatabaseFirstTimeAppLaunch(getApplicationContext());
+
+            //Получаем алфавиты с ресурсов
+            String[] arrayCyrillic2 = getResources().getStringArray(R.array.cyrillic);
+            String[] arrayLatin2 = getResources().getStringArray(R.array.latin);
+            String[] arrayDiacritics2 = getResources().getStringArray(R.array.diacretic);
+            String[] arraySaebiz2 = getResources().getStringArray(R.array.seabiz);
+
+            //Создаем Базу Первый раз, передаем алфавиты
+            CreateDatabase createDatabase = new CreateDatabase(arrayCyrillic2,arrayLatin2,arrayDiacritics2,arraySaebiz2);
+            createDatabase.createDatabaseFirstTimeAppLaunch(getApplicationContext());
         }
         c.close();
         dbHelper.close();
@@ -322,17 +331,17 @@ public class Main0Activity extends AppCompatActivity implements View.OnClickList
                 if (!resultSecondState.equals(diacritic) && !resultSecondState.equals(saebiz)) {
 
                     //эффект нажатия на кнопку ivChangeButton
-                    makeAnimationOnView(R.id.ivChangeButtonspinner, Techniques.RotateOut, 150, 0);
-                    makeAnimationOnView(R.id.ivChangeButtonspinner, Techniques.RotateIn, 350, 0);
+//                    makeAnimationOnView(R.id.ivChangeButtonspinner, Techniques.RotateOut, 750, 0);
+                    makeAnimationOnView(R.id.ivChangeButtonspinner, Techniques.RotateIn, 700, 0);
 
 
                     //эффект нажатия на textview mTvFirstState
-                    makeAnimationOnView(R.id.spinnerFirstState, Techniques.SlideInLeft, 150, 0);
+                    makeAnimationOnView(R.id.spinnerFirstState, Techniques.SlideInLeft, 350, 0);
                     makeAnimationOnView(R.id.spinnerFirstState, Techniques.SlideInRight, 350, 0);
 
 
                     //эффект нажатия на textview mTvSecondState
-                    makeAnimationOnView(R.id.spinnerSecondState, Techniques.SlideInRight, 150, 0);
+                    makeAnimationOnView(R.id.spinnerSecondState, Techniques.SlideInRight, 350, 0);
                     makeAnimationOnView(R.id.spinnerSecondState, Techniques.SlideInLeft, 350, 0);
 
                 } else {

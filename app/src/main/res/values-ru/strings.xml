@@ -13,5 +13,21 @@
     <string name="TextCopied">Текст скопирован</string>
     <string name="cyrillic">Кириллица</string>
     <string name="latin">Латиница</string>
-    <string name="myAlphabet">МойАлфавит</string>
+    <string name="myAlphabet">Мой Алфавит</string>
+    <string name="unicode1BasicLatinASCII">1. Базовая Латиница</string>
+    <string name="unicode2Latin1Supplement">2. Латиница-1, Дополнения</string>
+    <string name="activity_edit">Выберите Латинский алфавит в списке и затем букву:</string>
+    <string name="activity_table_text">Вы можете создать свой Алфавит, выберите букву в колонке \"Мой Алфавит\" для редактирования:</string>
+    <string name="unicode3LatinExtendedA">3. Расширенная Латиница-A</string>
+    <string name="unicode4LatinExtendedB">3. Расширенная Латиница-B</string>
+    <string name="unicode11IpaExtensions">11. Расширения IPA</string>
+    <string name="unicode12PhoneticExtensions">12. Фонетические Расширения</string>
+    <string name="unicode13PhoneticExtensionsSupplement">13. Фонетические Расширения — Дополнение</string>
+    <string name="unicode8LatinExtendedAdditional">8. Расширенная Латиница — Дополнение</string>
+    <string name="unicode5LatinExtendedC">5. Расширенная Латиница-C</string>
+    <string name="unicode6LatinExtendedD">6. Расширенная Латиница-D</string>
+    <string name="unicode7LatinExtendedE">7. Расширенная Латиница-E</string>
+    <string name="unicode10FullwidthLatinLetters">10. Формы Полной Ширины</string>
+    <string name="unicode9LatinLigatures">9. Латинские Лигатуры</string>
+    <string name="activity_table_title_actionbar">Редактировать Мой Алфавит</string>
 </resources>

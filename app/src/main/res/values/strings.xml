@@ -1,32 +1,35 @@
 <resources>
     <string name="app_name" translatable="false">Sæbiz</string>
-    <string name="here_will_be_text_in_latin_kazakh">Здесь будет преобразованный текст</string>
-    <string name="enter_text_in_cyrillic_kazakh">Введите текст на кириллице / латинице</string>
-    <string name="btnClean">Очистить</string>
-    <string name="btnInsert">Вставить</string>
-    <string name="btnConvert">Преобразовать</string>
-    <string name="copy_all">Скопировать все</string>
-    <string name="share_using">Поделиться с использованием?</string>
-    <string name="share">Поделиться</string>
-    <string name="cyrillic_to_latin">С кириллицы в латиницу</string>
-    <string name="latin_to_cyrillic">С латиницы на кириллицу</string>
-    <string name="TextCopied">Текст скопирован</string>
+    <string name="here_will_be_text_in_latin_kazakh">Here will be the converted text</string>
+    <string name="enter_text_in_cyrillic_kazakh">Enter Text in cyrillic/latin Kazakh</string>
+    <string name="btnClean">Clean</string>
+    <string name="btnInsert">Insert</string>
+    <string name="btnConvert">Convert</string>
+    <string name="copy_all">Copy All</string>
+    <string name="share_using">Share using?</string>
+    <string name="share">Share</string>
+    <string name="cyrillic_to_latin">Cyrillic To Latin</string>
+    <string name="latin_to_cyrillic">Latin To Cyrillic</string>
+    <string name="TextCopied">Text copied</string>
     <string name="banner_ad_unit_id" translatable="false">ca-app-pub-3940256099942544/6300978111</string>
-    <string name="cyrillic">Кириллица</string>
-    <string name="latin">Латиница</string>
-    <string name="myAlphabet">МойАлфавит</string>
-    <string name="unicode1BasicLatinASCII">Unicode1BasicLatinASCII</string>
-    <string name="unicode2Latin1Supplement">Unicode2Latin1Supplement</string>
-    <string name="unicode3LatinExtendedA">Unicode3LatinExtendedA</string>
-    <string name="unicode4LatinExtendedB">Unicode4LatinExtendedB</string>
-    <string name="unicode5LatinExtendedC">Unicode5LatinExtendedC</string>
-    <string name="unicode6LatinExtendedD">Unicode6LatinExtendedD</string>
-    <string name="unicode7LatinExtendedE">Unicode7LatinExtendedE</string>
-    <string name="unicode8LatinExtendedAdditional">Unicode8LatinExtendedAdditional</string>
-    <string name="unicode9LatinLigatures">Unicode9LatinLigatures</string>
-    <string name="unicode10FullwidthLatinLetters">Unicode10FullwidthLatinLetters</string>
-    <string name="unicode11IpaExtensions">Unicode11IpaExtensions</string>
-    <string name="unicode12PhoneticExtensions">Unicode12PhoneticExtensions</string>
-    <string name="unicode13PhoneticExtensionsSupplement">Unicode13PhoneticExtensionsSupplement</string>
-    <string name="mytable">mytable</string>
+    <string name="cyrillic">Cyrillic</string>
+    <string name="latin">Latin</string>
+    <string name="myAlphabet">My Alphabet</string>
+    <string name="unicode1BasicLatinASCII">1. Basic Latin ASCII</string>
+    <string name="unicode2Latin1Supplement">2. Latin-1 Supplement</string>
+    <string name="unicode3LatinExtendedA">3. Latin Extended-A</string>
+    <string name="unicode4LatinExtendedB">4. Latin Extended-B</string>
+    <string name="unicode5LatinExtendedC">5. Latin Extended-C</string>
+    <string name="unicode6LatinExtendedD">6. Latin Extended-D</string>
+    <string name="unicode7LatinExtendedE">7. Latin Extended-E</string>
+    <string name="unicode8LatinExtendedAdditional">8. Latin Extended Additional</string>
+    <string name="unicode9LatinLigatures">9. Latin Ligatures</string>
+    <string name="unicode10FullwidthLatinLetters">10. Fullwidth Latin Letters</string>
+    <string name="unicode11IpaExtensions">11. Ipa Extensions</string>
+    <string name="unicode12PhoneticExtensions">12. Phonetic Extensions</string>
+    <string name="unicode13PhoneticExtensionsSupplement">13. Phonetic Extensions Supplement</string>
+    <string name="mytable" translatable="false">mytable</string>
+    <string name="activity_edit">Choose Latin alphabet from spinner and then the letter:</string>
+    <string name="activity_table_text">You may create your own Alphabet, just choose the letter in column \"My Alphabet\" to edit:</string>
+    <string name="activity_table_title_actionbar">Edit My Alphabet...</string>
 </resources>
