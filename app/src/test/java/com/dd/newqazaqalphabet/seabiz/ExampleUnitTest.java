@@ -1,4 +1,4 @@
-package com.dd.newqazaqalphabet.seabis;
+package com.dd.newqazaqalphabet.seabiz;
 
 import org.junit.Test;
 

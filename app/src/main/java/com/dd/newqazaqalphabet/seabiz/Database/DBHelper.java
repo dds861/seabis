@@ -1,11 +1,11 @@
-package com.dd.newqazaqalphabet.seabis.Database;
+package com.dd.newqazaqalphabet.seabiz.Database;
 
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
-import com.dd.newqazaqalphabet.seabis.R;
+import com.dd.newqazaqalphabet.seabiz.R;
 
 public class DBHelper extends SQLiteOpenHelper {
     final String LOG_TAG = "myLogs";

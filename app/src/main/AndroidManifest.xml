@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.dd.newqazaqalphabet.seabis">
+    package="com.dd.newqazaqalphabet.seabiz">
 
     <application
         android:allowBackup="true"
@@ -13,7 +13,7 @@
         <!-- android:theme="@style/AppTheme"> -->
 
         <activity
-            android:name=".Main0Activity"
+            android:name="com.dd.newqazaqalphabet.seabiz.Main0Activity"
             android:windowSoftInputMode="stateHidden|adjustResize">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -30,11 +30,11 @@
         </activity>
 
         <activity
-            android:name=".Settings.Table.ActivityTable"
-            android:parentActivityName=".Main0Activity" />
+            android:name="com.dd.newqazaqalphabet.seabiz.Settings.Table.ActivityTable"
+            android:parentActivityName="com.dd.newqazaqalphabet.seabiz.Main0Activity" />
         <activity
-            android:name=".Settings.Table.EditDiacteric.ActivityEditDiacritic"
-            android:parentActivityName=".Settings.Table.ActivityTable" />
+            android:name="com.dd.newqazaqalphabet.seabiz.Settings.Table.EditDiacteric.ActivityEditDiacritic"
+            android:parentActivityName="com.dd.newqazaqalphabet.seabiz.Settings.Table.ActivityTable" />
     </application>
 
 </manifest>

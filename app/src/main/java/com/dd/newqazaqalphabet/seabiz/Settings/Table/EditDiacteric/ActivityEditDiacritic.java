@@ -1,4 +1,4 @@
-package com.dd.newqazaqalphabet.seabis.Settings.Table.EditDiacteric;
+package com.dd.newqazaqalphabet.seabiz.Settings.Table.EditDiacteric;
 
 import android.content.ContentValues;
 import android.content.Intent;
@@ -13,8 +13,8 @@ import android.widget.GridView;
 import android.widget.Spinner;
 import android.widget.Toast;
 
-import com.dd.newqazaqalphabet.seabis.Database.DBHelper;
-import com.dd.newqazaqalphabet.seabis.R;
+import com.dd.newqazaqalphabet.seabiz.Database.DBHelper;
+import com.dd.newqazaqalphabet.seabiz.R;
 
 import java.util.ArrayList;
 
@@ -32,6 +32,9 @@ public class ActivityEditDiacritic extends AppCompatActivity {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_diacritic);
+
+        setTitle(getString(R.string.activity_table_title_word_editing));
+
         initView();
         setupSpinner();
 

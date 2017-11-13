@@ -30,4 +30,5 @@
     <string name="unicode10FullwidthLatinLetters">10. Формы Полной Ширины</string>
     <string name="unicode9LatinLigatures">9. Латинские Лигатуры</string>
     <string name="activity_table_title_actionbar">Редактировать Мой Алфавит</string>
+    <string name="activity_table_title_word_editing">Редактирование Буквы</string>
 </resources>

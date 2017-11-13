@@ -1,4 +1,4 @@
-package com.dd.newqazaqalphabet.seabis.Settings.Table;
+package com.dd.newqazaqalphabet.seabiz.Settings.Table;
 
 import android.content.Context;
 import android.support.annotation.NonNull;
@@ -9,7 +9,7 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
-import com.dd.newqazaqalphabet.seabis.R;
+import com.dd.newqazaqalphabet.seabiz.R;
 
 import java.util.List;
 

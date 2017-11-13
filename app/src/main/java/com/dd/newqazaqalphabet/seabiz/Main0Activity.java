@@ -1,4 +1,4 @@
-package com.dd.newqazaqalphabet.seabis;
+package com.dd.newqazaqalphabet.seabiz;
 
 import android.content.ClipData;
 import android.content.ClipboardManager;
@@ -25,9 +25,9 @@ import android.widget.Toast;
 
 import com.daimajia.androidanimations.library.Techniques;
 import com.daimajia.androidanimations.library.YoYo;
-import com.dd.newqazaqalphabet.seabis.Database.CreateDatabase;
-import com.dd.newqazaqalphabet.seabis.Database.DBHelper;
-import com.dd.newqazaqalphabet.seabis.Settings.Table.ActivityTable;
+import com.dd.newqazaqalphabet.seabiz.Database.CreateDatabase;
+import com.dd.newqazaqalphabet.seabiz.Database.DBHelper;
+import com.dd.newqazaqalphabet.seabiz.Settings.Table.ActivityTable;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
 
@@ -70,16 +70,7 @@ public class Main0Activity extends AppCompatActivity implements View.OnClickList
         SQLiteDatabase db = dbHelper.getWritableDatabase();
         Cursor c = db.query("mytable", null, null, null, null, null, null);
         if (c.getCount() == 0) {
-
-            //Получаем алфавиты с ресурсов
-            String[] arrayCyrillic2 = getResources().getStringArray(R.array.cyrillic);
-            String[] arrayLatin2 = getResources().getStringArray(R.array.latin);
-            String[] arrayDiacritics2 = getResources().getStringArray(R.array.diacretic);
-            String[] arraySaebiz2 = getResources().getStringArray(R.array.seabiz);
-
-            //Создаем Базу Первый раз, передаем алфавиты
-            CreateDatabase createDatabase = new CreateDatabase(arrayCyrillic2,arrayLatin2,arrayDiacritics2,arraySaebiz2);
-            createDatabase.createDatabaseFirstTimeAppLaunch(getApplicationContext());
+            new CreateDatabase().createDatabaseFirstTimeAppLaunch(getApplicationContext());
         }
         c.close();
         dbHelper.close();
@@ -88,6 +79,7 @@ public class Main0Activity extends AppCompatActivity implements View.OnClickList
         initView();
 
         //Admob code
+        mAdView = (AdView) findViewById(R.id.adView);
         AdRequest adRequest = new AdRequest.Builder().build();
         mAdView.loadAd(adRequest);
 
@@ -130,7 +122,7 @@ public class Main0Activity extends AppCompatActivity implements View.OnClickList
         mIvCopyAll.setOnClickListener(this);
         mIvShare = (ImageView) findViewById(R.id.ivShare);
         mIvShare.setOnClickListener(this);
-        mAdView = (AdView) findViewById(R.id.adView);
+
         mSpinnerFirstState = (Spinner) findViewById(R.id.spinnerFirstState);
         mIvChangeButtonspinner = (ImageView) findViewById(R.id.ivChangeButtonspinner);
         mIvChangeButtonspinner.setOnClickListener(this);

@@ -30,4 +30,5 @@
     <string name="unicode9LatinLigatures">9. Латын лигалары</string>
     <string name="unicode10FullwidthLatinLetters">10. Толыққанды латынша әріптер</string>
     <string name="activity_table_title_actionbar">Менің Әліпбиімді Түзету</string>
+    <string name="activity_table_title_word_editing">Әріпті өңдеу</string>
 </resources>

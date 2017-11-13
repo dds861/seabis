@@ -1,4 +1,4 @@
-package com.dd.newqazaqalphabet.seabis.Settings.Table;
+package com.dd.newqazaqalphabet.seabiz.Settings.Table;
 
 /**
  * Created by dds86 on 08-Nov-17.

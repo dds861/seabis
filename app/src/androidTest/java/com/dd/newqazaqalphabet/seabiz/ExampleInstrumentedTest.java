@@ -1,4 +1,4 @@
-package com.dd.newqazaqalphabet.seabis;
+package com.dd.newqazaqalphabet.seabiz;
 
 import android.content.Context;
 import android.support.test.InstrumentationRegistry;

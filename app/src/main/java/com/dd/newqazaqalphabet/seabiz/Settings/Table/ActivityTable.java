@@ -1,4 +1,4 @@
-package com.dd.newqazaqalphabet.seabis.Settings.Table;
+package com.dd.newqazaqalphabet.seabiz.Settings.Table;
 
 import android.content.Intent;
 import android.database.Cursor;
@@ -12,9 +12,9 @@ import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.ListView;
 
-import com.dd.newqazaqalphabet.seabis.Database.DBHelper;
-import com.dd.newqazaqalphabet.seabis.R;
-import com.dd.newqazaqalphabet.seabis.Settings.Table.EditDiacteric.ActivityEditDiacritic;
+import com.dd.newqazaqalphabet.seabiz.Database.DBHelper;
+import com.dd.newqazaqalphabet.seabiz.R;
+import com.dd.newqazaqalphabet.seabiz.Settings.Table.EditDiacteric.ActivityEditDiacritic;
 
 import java.util.ArrayList;
 import java.util.List;

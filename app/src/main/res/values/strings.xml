@@ -32,4 +32,5 @@
     <string name="activity_edit">Choose Latin alphabet from spinner and then the letter:</string>
     <string name="activity_table_text">You may create your own Alphabet, just choose the letter in column \"My Alphabet\" to edit:</string>
     <string name="activity_table_title_actionbar">Edit My Alphabet...</string>
+    <string name="activity_table_title_word_editing">Word Editing</string>
 </resources>
