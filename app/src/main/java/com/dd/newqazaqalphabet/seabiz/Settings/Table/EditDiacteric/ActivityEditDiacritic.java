@@ -54,16 +54,30 @@ public class ActivityEditDiacritic extends AppCompatActivity {
                 // подготовим значения для обновления
                 cv.put("diacritic", adapter.getItem(position));
 
-                String position_ = getIntent().getStringExtra("position");
+                int position_ = getIntent().getIntExtra("position", -1);
 
-                // обновляем по id
-                int updCount = db.update(getString(R.string.mytable), cv, "id = ?",
-                        new String[]{position_});
-                Log.d("autologs", "updated rows count = " + updCount);
+                switch (position_) {
+                    case 3:
+                        db.update(getString(R.string.mytable), cv, "id = ?", new String[]{String.valueOf(position_)});
+                        db.update(getString(R.string.mytable), cv, "id = ?", new String[]{String.valueOf(85)});
+                        break;
+                    case 4:
+                        db.update(getString(R.string.mytable), cv, "id = ?", new String[]{String.valueOf(position_)});
+                        db.update(getString(R.string.mytable), cv, "id = ?", new String[]{String.valueOf(86)});
+                        break;
+                    default:
+                        // обновляем по id
+                        db.update(getString(R.string.mytable), cv, "id = ?", new String[]{String.valueOf(position_)});
+                        break;
+                }
+
+
+
+
                 dbHelper.close();
 
                 Intent intent = new Intent();
-                intent.putExtra("currentListviewPosition",getIntent().getExtras().getParcelable("currentListviewPosition"));
+                intent.putExtra("currentListviewPosition", getIntent().getExtras().getParcelable("currentListviewPosition"));
                 setResult(RESULT_OK, intent);
                 finish();
             }

@@ -68,17 +68,29 @@ public class ActivityTable extends AppCompatActivity {
             int ColIndex3 = c.getColumnIndex("saebiz");
             int ColIndex4 = c.getColumnIndex("diacritic");
 
-            do {
+            for (int i = 0; i < 84; i++) {
                 String s1 = c.getString(ColIndex1);
                 String s2 = c.getString(ColIndex2);
                 String s3 = c.getString(ColIndex3);
                 String s4 = c.getString(ColIndex4);
 
                 products.add(new TableProduct(s1, s2, s3, s4));
+                c.moveToNext();
+            }
 
-                // переход на следующую строку
-                // а если следующей нет (текущая - последняя), то false - выходим из цикла
-            } while (c.moveToNext());
+//            do {
+//
+//
+//                String s1 = c.getString(ColIndex1);
+//                String s2 = c.getString(ColIndex2);
+//                String s3 = c.getString(ColIndex3);
+//                String s4 = c.getString(ColIndex4);
+//
+//                products.add(new TableProduct(s1, s2, s3, s4));
+//
+//                // переход на следующую строку
+//                // а если следующей нет (текущая - последняя), то false - выходим из цикла
+//            } while (c.moveToNext());
         } else
             Log.d("autologs", "0 rows");
         c.close();
@@ -95,7 +107,7 @@ public class ActivityTable extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
                 Intent intent = new Intent(getApplicationContext(), ActivityEditDiacritic.class);
-                intent.putExtra("position", String.valueOf(position + 1));
+                intent.putExtra("position", position + 1);
 
                 //Сохраняем текущую позицию, when we return, listview will be returned to previous state
                 Parcelable state = listView.onSaveInstanceState();
