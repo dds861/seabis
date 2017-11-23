@@ -140,7 +140,7 @@ public class Main0Activity extends AppCompatActivity implements View.OnClickList
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
-                case R.id.action_my_alphabet:
+            case R.id.action_my_alphabet:
                 Intent intent2 = new Intent(getApplicationContext(), ActivityTable.class);
                 startActivity(intent2);
                 return true;
@@ -279,8 +279,24 @@ public class Main0Activity extends AppCompatActivity implements View.OnClickList
 
                 //Вставляем в edittext - текст с буфера обмена
                 ClipboardManager clipboard = (ClipboardManager) getSystemService(CLIPBOARD_SERVICE);
-                String oldText = mEtUpEditText.getText().toString();
-                String newText = clipboard.getPrimaryClip().getItemAt(0).getText().toString();
+
+                //check for null
+                String oldText;
+                if (mEtUpEditText.getText().toString() == null) {
+                    oldText = "";
+                } else {
+
+                    oldText = mEtUpEditText.getText().toString();
+                }
+
+                //check for null
+                String newText;
+                if (clipboard == null) {
+                    newText = "";
+                } else {
+
+                    newText = clipboard.getPrimaryClip().getItemAt(0).getText().toString();
+                }
 
                 mEtUpEditText.setText(oldText + newText);
                 break;
@@ -633,7 +649,7 @@ public class Main0Activity extends AppCompatActivity implements View.OnClickList
             int idColIndex2 = c.getColumnIndex("cyrillic");
             Log.i("autolog", "idColIndex2: " + idColIndex2);
 
-            Integer[] positionsLatin = {69, 70, 81, 82, 17, 18, 83, 84,85, 86, 3, 4, 11, 12, 23, 24,
+            Integer[] positionsLatin = {69, 70, 81, 82, 17, 18, 83, 84, 85, 86, 3, 4, 11, 12, 23, 24,
                     25, 26, 37, 38, 41, 42, 51, 52, 55, 56, 65, 66, 67, 68, 1, 2, 5, 6, 7, 8,
                     9, 10, 13, 14, 15, 16, 19, 20, 21, 22, 27, 28, 29, 30, 31, 32, 33, 34, 35,
                     36, 39, 40, 43, 44, 45, 46, 47, 48, 49, 50, 53, 54, 57, 58, 59, 60, 61, 62,
@@ -673,7 +689,7 @@ public class Main0Activity extends AppCompatActivity implements View.OnClickList
             int idColIndex1 = c.getColumnIndex("latin");
             int idColIndex2 = c.getColumnIndex("diacritic");
 
-            Integer[] positionsLatin = {69, 70, 81, 82, 17, 18, 83, 84,85, 86, 3, 4, 11, 12, 23, 24,
+            Integer[] positionsLatin = {69, 70, 81, 82, 17, 18, 83, 84, 85, 86, 3, 4, 11, 12, 23, 24,
                     25, 26, 37, 38, 41, 42, 51, 52, 55, 56, 65, 66, 67, 68, 1, 2, 5, 6, 7, 8,
                     9, 10, 13, 14, 15, 16, 19, 20, 21, 22, 27, 28, 29, 30, 31, 32, 33, 34, 35,
                     36, 39, 40, 43, 44, 45, 46, 47, 48, 49, 50, 53, 54, 57, 58, 59, 60, 61, 62,
@@ -711,7 +727,7 @@ public class Main0Activity extends AppCompatActivity implements View.OnClickList
             int idColIndex1 = c.getColumnIndex("latin");
             int idColIndex2 = c.getColumnIndex("saebiz");
 
-            Integer[] positionsLatin = {69, 70, 81, 82, 17, 18, 83, 84,85, 86, 3, 4, 11, 12, 23, 24,
+            Integer[] positionsLatin = {69, 70, 81, 82, 17, 18, 83, 84, 85, 86, 3, 4, 11, 12, 23, 24,
                     25, 26, 37, 38, 41, 42, 51, 52, 55, 56, 65, 66, 67, 68, 1, 2, 5, 6, 7, 8,
                     9, 10, 13, 14, 15, 16, 19, 20, 21, 22, 27, 28, 29, 30, 31, 32, 33, 34, 35,
                     36, 39, 40, 43, 44, 45, 46, 47, 48, 49, 50, 53, 54, 57, 58, 59, 60, 61, 62,
