@@ -3,8 +3,8 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/seabis.iml" filepath="$PROJECT_DIR$/.idea/seabis.iml" />
-      <module fileurl="file://C:\Users\dds86\Desktop\AndroidApplications\seabis\seabis.iml" filepath="C:\Users\dds86\Desktop\AndroidApplications\seabis\seabis.iml" />
+      <module fileurl="file://$PROJECT_DIR$/seabis.iml" filepath="$PROJECT_DIR$/seabis.iml" />
+      <module fileurl="file://C:\Users\dds86\Desktop\AndroidApplications\seabis\.idea\seabis.iml" filepath="C:\Users\dds86\Desktop\AndroidApplications\seabis\.idea\seabis.iml" />
     </modules>
   </component>
 </project>
